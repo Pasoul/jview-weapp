@@ -1,0 +1,14 @@
+<view  class='slide'>
+  <van-slide-view id="componentId" width="750" height="110" slide-width="500">
+  <view slot="left" class="l" bindtap="close">
+    <view class='text'>
+      <view class='title'>文件传输助手</view>
+      <view class='time'>7:00 PM</view>
+    </view>
+  </view>
+  <view slot="right" class="r">
+    <view class='read'>标为已读</view>
+    <view class='delete'>删除</view>
+  </view>
+</van-slide-view>
+</view>

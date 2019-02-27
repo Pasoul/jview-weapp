@@ -1,0 +1,21 @@
+{
+  "root": true,
+  "globals": {
+    "getApp": false,
+    "getCurrentPages": false,
+    "Page": false,
+    "Component": false,
+    "App": false,
+    "wx": false,
+    "Behavior": false,
+    "describe": false,
+    "simulate": false,
+    "expect": false,
+    "test": false
+  },
+  "extends": ["plugin:vue-libs/recommended"],
+  "rules": {
+    "semi": ["error", "always"],
+    "space-before-function-paren": ["error", "never"]
+  }
+}

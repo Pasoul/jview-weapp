@@ -1,0 +1,1 @@
+@import '../../common/index.wxss';.movable-view{display:-webkit-flex;display:flex;direction:row;overflow:hidden}.movable-view .container{overflow:hidden}

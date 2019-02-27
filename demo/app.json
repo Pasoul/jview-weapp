@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/dashboard/index",
+    "pages/slide-view/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#f8f8f8",
+    "navigationBarTitleText": "Vant Weapp",
+    "navigationBarTextStyle": "black",
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#f8f8f8"
+  },
+  "usingComponents": {
+    "demo-block": "../../components/demo-block/index",
+    "van-icon": "../../dist/packages/icon/index",
+    "van-cell": "../../dist/packages/cell/index",
+    "van-cell-group": "../../dist/packages/cell-group/index",
+    "van-slide-view": "../../dist/packages/slide-view/index"
+  }
+}
