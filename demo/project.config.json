@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -37,12 +37,19 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 1,
 			"list": [
 				{
 					"id": -1,
 					"name": "slide-view",
 					"pathName": "pages/slide-view/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "water-fall",
+					"pathName": "pages/water-fall/index",
 					"scene": null
 				}
 			]

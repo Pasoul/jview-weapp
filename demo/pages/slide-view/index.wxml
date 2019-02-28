@@ -1,14 +1,15 @@
-<view  class='slide'>
-  <van-slide-view id="componentId" width="750" height="110" slide-width="500">
-  <view slot="left" class="l" bindtap="close">
-    <view class='text'>
-      <view class='title'>文件传输助手</view>
-      <view class='time'>7:00 PM</view>
+<view class='slide' wx:for="{{lists}}" wx:key="id">
+  <van-slide-view id="{{'componentId' + item.id}}" bind:slideOpen="slideOpen" width="750" height="110" slide-width="500">
+    <view slot="left" class="l" data-id="{{'componentId' + item.id}}" bindtap="close">
+      <image src="{{item.img}}" class="img"></image>
+      <view class='text'>
+        <view class='title'>{{item.nickname}}</view>
+        <view class='time'>{{item.time}}</view>
+      </view>
     </view>
-  </view>
-  <view slot="right" class="r">
-    <view class='read'>标为已读</view>
-    <view class='delete'>删除</view>
-  </view>
-</van-slide-view>
+    <view slot="right" class="r">
+      <view class='read' bindtap="read" data-index="{{index}}">标为已读</view>
+      <view class='delete' bindtap="del" data-index="{{index}}">删除</view>
+    </view>
+  </van-slide-view>
 </view>

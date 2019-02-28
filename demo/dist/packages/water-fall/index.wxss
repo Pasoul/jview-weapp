@@ -1,0 +1,1 @@
+@import '../../common/index.wxss';.van-water-fall{overflow:hidden}.van-water-fall .van-water-fall_col{float:left}.van-water-fall .van-water-fall_col--right{float:right}.van-water-fall .van-water-fall_col .van-water-fall_img{width:100%}

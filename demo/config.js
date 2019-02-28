@@ -1,6 +1,6 @@
 export default [
   {
-    groupName: '基础组件',
+    groupName: '反馈组件',
     list: [
       {
         path: '/slide-view',
@@ -9,13 +9,12 @@ export default [
     ]
   },
   {
-    groupName: '反馈组件',
-    list: [
-    ]
-  },
-  {
     groupName: '展示组件',
     list: [
+      {
+        path: '/water-fall',
+        title: 'waterFall瀑布流'
+      }
     ]
   }
 ];

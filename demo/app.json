@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/dashboard/index",
-    "pages/slide-view/index"
+    "pages/slide-view/index",
+    "pages/water-fall/index"
   ],
   "window": {
     "navigationBarBackgroundColor": "#f8f8f8",
@@ -15,6 +16,7 @@
     "van-icon": "../../dist/packages/icon/index",
     "van-cell": "../../dist/packages/cell/index",
     "van-cell-group": "../../dist/packages/cell-group/index",
-    "van-slide-view": "../../dist/packages/slide-view/index"
+    "van-slide-view": "../../dist/packages/slide-view/index",
+    "van-water-fall": "../../dist/packages/water-fall/index"
   }
 }

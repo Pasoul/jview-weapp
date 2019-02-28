@@ -7,21 +7,11 @@
   <title>Document</title>
 </head>
 <body>
-  <script>
-    var str = `var bem = require('./bem.wxs').bem;
-    var memoize = require('./memoize.wxs').memoize;
-    
-    function isSrc(url) {
-      return url.indexOf('http') === 0 || url.indexOf('data:image') === 0 || url.indexOf('//') === 0;
-    }
-    
-    module.exports = {
-      bem: memoize(bem),
-      isSrc: isSrc,
-      memoize: memoize
-    };`
-  var a = str.replace(/\.\/(\w+)\.wxs/g, '$1.js')
-  console.log(a)
-  </script>
+    <p>相册：</p>
+    <input type="file" accept="image/*" multiple size="2">
+    <p>视频：</p>
+    <input type="file" accept="video/*" capture="camcorder">
+    <p>音频：</p>
+    <input type="file" accept="audio/*" capture="microphone">
 </body>
 </html>

@@ -12,6 +12,8 @@ function join(name, mods) {
 }
 
 function traversing(mods, conf) {
+  console.log(typeof conf);
+  console.log(JSON.stringify(conf));
   if (!conf) {
     return;
   }

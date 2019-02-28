@@ -38,6 +38,8 @@
 .text {
   display: flex;
   flex-direction: row;
+  flex: 1;
+  justify-content: space-between;
 }
 .title {
   margin-top: 15rpx;
@@ -47,5 +49,5 @@
   margin-top: 15rpx;
   color: #ccc;
   font-size: 25rpx;
-  margin-left: 330rpx;
+  margin-right: 30rpx;
 }

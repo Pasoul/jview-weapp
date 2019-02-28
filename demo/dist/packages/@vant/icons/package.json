@@ -1,30 +1,38 @@
 {
-  "name": "@vant/icons",
-  "version": "1.0.9",
-  "description": "vant icons",
-  "main": "./src/config.js",
-  "files": [
-    "src"
-  ],
-  "scripts": {
-    "export": "node ./build/export.js",
-    "build": "npm run export && gulp --gulpfile ./build/build-iconfont.js",
-    "release": "sh ./build/release.sh"
+  "_development": true,
+  "_from": "@vant/icons@1.0.9",
+  "_id": "@vant/icons@1.0.9",
+  "_inBundle": false,
+  "_integrity": "sha512-UbVgL1C1GDcLIZYasdTgKiLsyyFIs9qCG80O7wStxYxF4Pm3qFxaUYwmb5KKsjqN4E+HSewBqZaPZaPk5hiVCw==",
+  "_location": "/@vant/icons",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@vant/icons@1.0.9",
+    "name": "@vant/icons",
+    "escapedName": "@vant%2ficons",
+    "scope": "@vant",
+    "rawSpec": "1.0.9",
+    "saveSpec": null,
+    "fetchSpec": "1.0.9"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/youzan/vant-icons.git"
-  },
-  "keywords": [
-    "vant",
-    "icons"
+  "_requiredBy": [
+    "#DEV:/"
   ],
-  "author": "chenjiahan",
-  "license": "MIT",
+  "_resolved": "https://registry.npmjs.org/@vant/icons/-/icons-1.0.9.tgz",
+  "_shasum": "20750abe2447312e25ddf5b85e98ea0c2aea69a7",
+  "_spec": "@vant/icons@1.0.9",
+  "_where": "/Users/pengyong/Desktop/project/jlb-company/jview-weapp",
+  "author": {
+    "name": "chenjiahan"
+  },
   "bugs": {
     "url": "https://github.com/youzan/vant-icons/issues"
   },
-  "homepage": "https://github.com/youzan/vant-icons#readme",
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "vant icons",
   "devDependencies": {
     "fast-glob": "^2.2.4",
     "fs-extra": "^7.0.1",
@@ -34,5 +42,26 @@
     "md5-file": "^4.0.0",
     "shelljs": "^0.8.3",
     "svgo": "^1.1.1"
-  }
+  },
+  "files": [
+    "src"
+  ],
+  "homepage": "https://github.com/youzan/vant-icons#readme",
+  "keywords": [
+    "vant",
+    "icons"
+  ],
+  "license": "MIT",
+  "main": "./src/config.js",
+  "name": "@vant/icons",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youzan/vant-icons.git"
+  },
+  "scripts": {
+    "build": "npm run export && gulp --gulpfile ./build/build-iconfont.js",
+    "export": "node ./build/export.js",
+    "release": "sh ./build/release.sh"
+  },
+  "version": "1.0.9"
 }
