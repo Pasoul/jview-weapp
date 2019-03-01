@@ -2,15 +2,54 @@
   <view class="van-water-fall_col" 
         style="margin-right: {{marginRight}}rpx;width:{{width}}rpx">
     <view class="van-water-fall_item" wx:for="{{renderLists.colL}}" wx:key="id">
-       <image mode="aspectFill" lazy-load class="van-water-fall_img" src="{{item.url}}" style="height: {{item.height}}px" bindtap="clickImg" data-type="{{item.type}}" data-id="{{item.id}}" />
+       <image mode="aspectFill" 
+              class="van-water-fall_img" 
+              lazy-load 
+              src="{{item.url}}" 
+              style="height: {{item.newHeight}}px" 
+              bindtap="clickImg" 
+              data-type="{{item.type}}" 
+              data-id="{{item.id}}"
+              wx:if="{{item.type === 1}}" />
+       <view class="van-water-fall_video" 
+              bindtap="clickImg"
+              data-type="{{item.type}}" 
+              data-id="{{item.id}}"
+              wx:elif="{{item.type === 3}}" >
+              <image mode="aspectFill" 
+                    lazy-load 
+                    class="van-water-fall_img" 
+                    src="{{item.url}}" 
+                    style="height: {{item.newHeight}}px" />
+       </view>
        <view class="van-water-fall_desc">{{item.desc}}</view>
     </view>
   </view>
   <view class="van-water-fall_col van-water-fall_col--right"
         style="width:{{width}}rpx">
     <view class="van-water-fall_item" wx:for="{{renderLists.colR}}" wx:key="id">
-       <image mode="aspectFill" lazy-load class="van-water-fall_img" src="{{item.url}}" style="height: {{item.height}}px" bindtap="clickImg" data-type="{{item.type}}" data-id="{{item.id}}" />
+       <image mode="aspectFill" 
+              class="van-water-fall_img" 
+              lazy-load
+              src="{{item.url}}" 
+              style="height: {{item.newHeight}}px" 
+              bindtap="clickImg" 
+              data-type="{{item.type}}" 
+              data-id="{{item.id}}"
+              wx:if="{{item.type === 1}}" />
+        <view class="van-water-fall_video" 
+              bindtap="clickImg"
+              data-type="{{item.type}}" 
+              data-id="{{item.id}}"
+              wx:elif="{{item.type === 3}}" >
+              <image mode="aspectFill" 
+                    lazy-load 
+                    class="van-water-fall_img" 
+                    src="{{item.url}}" 
+                    style="height: {{item.newHeight}}px" />
+       </view>
        <view class="van-water-fall_desc">{{item.desc}}</view>
     </view>
   </view>
+  <video id="van-water-fall_video" style="width: 1rpx;height:1rpx;opacity:0;display:none;" src="{{videoSrc}}"></video>
 </view>

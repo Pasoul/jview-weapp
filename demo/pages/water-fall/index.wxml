@@ -1,4 +1,4 @@
 <view>
-  <van-water-fall lists="{{lists}}" width="{{width}}" bind:clickImg="onImgTap">
+  <van-water-fall lists="{{lists}}" preview="{{preview}}" width="{{width}}" bind:clickImg="onImgTap">
   </van-water-fall>
 </view>

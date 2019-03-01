@@ -79,6 +79,24 @@ const lists = [
     "desc": "宋代诗人王质有诗《夜泊荻港》：落日人家已半扉，隔离",
     "width": 430,
     "height": 660
+  },
+  {
+    "id": 100,
+    "url": "https://images2.bestjlb.com/v2jlbossce92dfff00fd44eef3d85bcd84c0aaf915514280481079201.mp4.jpeg?x-oss-process=image/format,jpg/resize,w_343/auto-orient,1",
+    "videoSrc": "https://images2.bestjlb.com/v2jlbossce92dfff00fd44eef3d85bcd84c0aaf915514280481079201.mp4",
+    "type": 3,
+    "desc": "玉米小朋友变身",
+    "width": 430,
+    "height": 660
+  },
+  {
+    "id": 101,
+    "url": "https://images2.bestjlb.com/v2jlboss3c266d829f547453b7c937ce251a2d5215514281036217142.mp4.jpeg?x-oss-process=image/format,jpg/resize,w_343/auto-orient,1",
+    "videoSrc": "https://images2.bestjlb.com/v2jlboss3c266d829f547453b7c937ce251a2d5215514281036217142.mp4",
+    "type": 3,
+    "desc": "办公一隅",
+    "width": 330,
+    "height": 660
   }
 ];
 const lists1 = [
@@ -167,10 +185,12 @@ Page({
   data: {
     lists: lists,
     hasMore: true,
-    width: 345
+    width: 345,
+    preview: true
   },
-  onImgTap() {
-    console.log(111);
+  onImgTap(e) {
+    const { id, type } = e.detail;
+    console.log(`当前点击项：id: ${id}, type: ${type}`);
   },
   onReachBottom() {
     if (this.data.hasMore) {
