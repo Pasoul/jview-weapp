@@ -14,6 +14,14 @@ VantComponent({
     lists: {
       type: Array,
       value: []
+    },
+    preview: {
+      type: Boolean,
+      value: true
+    },
+    play: {
+      type: Boolean,
+      value: true
     }
   },
   data: {
@@ -28,21 +36,18 @@ VantComponent({
       colR: [],
       colLHeight: 0,
       colRHeight: 0
-    }
-  },
-  mounted: function mounted() {
-    this._normalizeLists();
+    },
+    totalLength: 0
   },
   methods: {
-    _normalizeLists: function _normalizeLists() {
+    _normalizeLists: function _normalizeLists(lists) {
       var _this = this;
 
-      var lists = this.data.lists;
       lists.forEach(function (item) {
         // 根据比例缩放图片
         var width = item.width,
             height = item.height;
-        var scale = _this.data.width / width;
+        var scale = _this.data.width / width / 2;
         var newHeight = Number((height * scale).toFixed(2));
         item['height'] = newHeight;
         var _this$data$renderList = _this.data.renderLists,
@@ -52,23 +57,41 @@ VantComponent({
             colRHeight = _this$data$renderList.colRHeight; // 判断当前图片添加到左列还是右列        
 
         if (colLHeight <= colRHeight) {
-          _this.setData({
+          _this.set({
             "renderLists.colL": colL.concat(item),
             "renderLists.colLHeight": colLHeight + newHeight
           });
         } else {
-          _this.setData({
+          _this.set({
             "renderLists.colR": colR.concat(item),
             "renderLists.colRHeight": colRHeight + newHeight
           });
         }
       });
-      console.log(this.data.renderLists);
+    },
+    previewImg: function previewImg() {// wx.previewImage({
+      // })
+    },
+    clickImg: function clickImg(e) {
+      var _e$currentTarget$data = e.currentTarget.dataset,
+          id = _e$currentTarget$data.id,
+          type = _e$currentTarget$data.type; // 如果点击的是图片，并且设置可以预览
+
+      if (this.data.preview && type === 1) {
+        this.previewImg();
+      }
+
+      this.$emit('clickImg', {
+        id: id,
+        type: type
+      });
     }
   },
   watch: {
-    "lists": function lists(val, oldVal) {
-      console.log();
+    "lists": function lists(newVal, oldVal) {
+      if (newVal.length) {
+        this._normalizeLists(newVal.slice(oldVal.length, newVal.length));
+      }
     }
   }
 });

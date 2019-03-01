@@ -49,6 +49,7 @@
     "jest": "^24.1.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
+    "miniprogram-api-typings": "^2.4.2",
     "miniprogram-simulate-extend": "^0.1.0",
     "mocha": "^6.0.0",
     "postcss-loader": "^3.0.0",

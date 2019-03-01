@@ -1,0 +1,14 @@
+page{
+  background-color: #fff;
+}
+.van-water-fall {
+  padding: 0 10px;
+}
+.van-water-fall_col .van-water-fall_item{
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+.van-water-fall_item .van-water-fall_desc{
+  font-size: 14px;
+  color: #333;
+}

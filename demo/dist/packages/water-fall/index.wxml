@@ -1,16 +1,16 @@
 <view class="custom-class van-water-fall">
   <view class="van-water-fall_col" 
         style="margin-right: {{marginRight}}rpx;width:{{width}}rpx">
-    <block wx:for="{{renderLists.colL}}" wx:key="id">
-       <image mode="aspectFill" lazy-load class="van-water-fall_img" src="{{item.url}}" style="height: {{item.height}}px" bindtap="clickImg" data-id="{{id}}" />
+    <view class="van-water-fall_item" wx:for="{{renderLists.colL}}" wx:key="id">
+       <image mode="aspectFill" lazy-load class="van-water-fall_img" src="{{item.url}}" style="height: {{item.height}}px" bindtap="clickImg" data-type="{{item.type}}" data-id="{{item.id}}" />
        <view class="van-water-fall_desc">{{item.desc}}</view>
-    </block>
+    </view>
   </view>
   <view class="van-water-fall_col van-water-fall_col--right"
         style="width:{{width}}rpx">
-    <block wx:for="{{renderLists.colR}}" wx:key="id">
-       <image mode="aspectFill" lazy-load class="van-water-fall_img" src="{{item.url}}" style="height: {{item.height}}px" bindtap="clickImg" data-id="{{id}}" />
+    <view class="van-water-fall_item" wx:for="{{renderLists.colR}}" wx:key="id">
+       <image mode="aspectFill" lazy-load class="van-water-fall_img" src="{{item.url}}" style="height: {{item.height}}px" bindtap="clickImg" data-type="{{item.type}}" data-id="{{item.id}}" />
        <view class="van-water-fall_desc">{{item.desc}}</view>
-    </block>
+    </view>
   </view>
 </view>

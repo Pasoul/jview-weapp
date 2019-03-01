@@ -6,7 +6,6 @@ type BehaviorOptions = {
 // 需要注意的是，声明语句中只能定义类型，切勿在声明语句中定义具体的值
 declare function Behavior(options: BehaviorOptions): void
 declare function Component(options: any): void
-declare function getCurrentPages(): Weapp.Page[]
 
 // declare namespace表示全局变量是一个对象，包含很多子属性
 declare namespace Weapp {

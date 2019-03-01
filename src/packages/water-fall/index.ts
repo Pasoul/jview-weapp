@@ -14,6 +14,14 @@ VantComponent({
     lists: {
       type: Array,
       value: []
+    },
+    preview: {
+      type: Boolean,
+      value: true
+    },
+    play: {
+      type: Boolean,
+      value: true
     }
   },
   data: {
@@ -28,40 +36,51 @@ VantComponent({
       colR: [],
       colLHeight: 0,
       colRHeight: 0
-    }
-  },
-  mounted() {
-    this._normalizeLists();
+    },
+    totalLength: 0
   },
   methods: {
-    _normalizeLists() {
-      let lists = this.data.lists;
+    _normalizeLists(lists) {
       lists.forEach(item => {
         // 根据比例缩放图片
         let {width, height} = item;
-        let scale = this.data.width / width;
+        let scale = this.data.width / width / 2;
         let newHeight = Number((height * scale).toFixed(2));
         item['height'] = newHeight;
         let { colL, colR, colLHeight, colRHeight } = this.data.renderLists;
         // 判断当前图片添加到左列还是右列        
         if (colLHeight <= colRHeight) {
-          this.setData({
+          this.set({
             "renderLists.colL": colL.concat(item),
             "renderLists.colLHeight": colLHeight + newHeight
           });
         } else {
-          this.setData({
+          this.set({
             "renderLists.colR": colR.concat(item),
             "renderLists.colRHeight": colRHeight + newHeight
           });
         }
       });
-      console.log(this.data.renderLists);
     },
+    previewImg() {
+      // wx.previewImage({
+
+      // })
+    },
+    clickImg(e) {
+      let {id, type} = e.currentTarget.dataset;
+      // 如果点击的是图片，并且设置可以预览
+      if (this.data.preview && type === 1) {
+        this.previewImg()
+      }
+      this.$emit('clickImg', {id, type});
+    }
   },
   watch: {
-    "lists": function(val, oldVal) {
-      console.log();
+    "lists": function(newVal, oldVal) {
+      if(newVal.length) {
+        this._normalizeLists(newVal.slice(oldVal.length, newVal.length));
+      }
     }
   }
 })
