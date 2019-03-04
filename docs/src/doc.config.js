@@ -1,6 +1,6 @@
 /* eslint-disable */
 import packageJson from '../../package.json';
-import components from '../../demo/config';
+import components from '../../example/config';
 const { version } = packageJson;
 
 export default {

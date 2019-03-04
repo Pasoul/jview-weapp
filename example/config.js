@@ -16,5 +16,14 @@ export default [
         title: 'waterFall瀑布流'
       }
     ]
+  },
+  {
+    groupName: '表单组件',
+    list: [
+      {
+        path: '/water-fall',
+        title: 'waterFall瀑布流'
+      }
+    ]
   }
 ];

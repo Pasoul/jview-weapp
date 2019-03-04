@@ -53,4 +53,4 @@ npm install
 npm run dev
 ```
 
-打开[微信开发者工具](https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/download.html)，把`jview-weapp/demo`目录添加进去就可以预览示例了。
+打开[微信开发者工具](https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/download.html)，把`jview-weapp/example`目录添加进去就可以预览示例了。

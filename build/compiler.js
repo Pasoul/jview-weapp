@@ -9,7 +9,7 @@ const postcss = require('gulp-postcss');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const src = path.join(__dirname, '../src');
-const dist = path.join(__dirname, isProduction ? '../dist' : '../demo/dist');
+const dist = path.join(__dirname, isProduction ? '../dist' : '../example/dist');
 const ext = ['ts', 'less', 'json', 'wxml', 'wxs'];
 
 function copy(ext) {

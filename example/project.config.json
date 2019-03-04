@@ -14,7 +14,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.6.0",
 	"appid": "wx1ea5fca73baff8dd",
-	"projectname": "jview",
+	"projectname": "jview-weapp",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
