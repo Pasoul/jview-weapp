@@ -1,0 +1,33 @@
+@import '../../common/style/var.less';
+.van-upload{
+  .van-upload_btn{
+    position: relative;
+    overflow: hidden;
+    .van-upload_btn--def{
+      position: relative;
+      width: 80px;
+      height: 80px;
+      box-sizing: border-box;
+      background-color: @white;
+      border-radius: 2px;
+      &:active{
+        background-color: @gray-light;
+      }
+      .van-upload_icon{
+        &::before, &::after{
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 20px;
+          height: 2px;
+          transform: translate(-50%, -50%);
+          background-color: @upload-btn-color;
+        }
+        &::after{
+          transform: translate(-50%, -50%) rotate(90deg);
+        }
+      }
+    }
+  }
+}

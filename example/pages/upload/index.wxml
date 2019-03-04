@@ -1,1 +1,3 @@
-<view ></view>
+<view >
+  <van-upload></van-upload>
+</view>

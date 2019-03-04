@@ -21,8 +21,8 @@ export default [
     groupName: '表单组件',
     list: [
       {
-        path: '/water-fall',
-        title: 'waterFall瀑布流'
+        path: '/upload',
+        title: 'upload'
       }
     ]
   }

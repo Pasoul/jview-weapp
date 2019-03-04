@@ -1,1 +1,15 @@
-<view ></view>
+<view class="van-upload">
+  <view class="van-upload_btn" bindtap="chooseFile">
+    <view wx:if="{{useDefaultBtn}}" class="van-upload_btn--def van-hairline--surround">
+        <view class="van-upload_icon"></view>
+    </view>
+    <slot name="btn" wx:else>
+    </slot>
+  </view>
+  <view class="van-upload_file" wx:for="{{files}}" wx:key="index" bindtap="fileClick">
+    <view wx:if="{{useDefaultFile}}" class="van-upload_file--def">
+      <image src="{{item.file}}" mode="aspectFit" class="van-upload_image" />
+    </view>
+    <slot name="file" wx:else></slot>
+  </view>
+</view>
