@@ -90,4 +90,17 @@ declare namespace Weapp {
   interface Page {
     selectComponent(selector: string): Component
   }
+
+  interface TempFile {
+    path: string
+    size: number
+  }
+
+  interface UploadTask {
+    absort(): void
+    offHeadersReceived(callback?:Function): void
+    offProgressUpdate(callback?:Function): void
+    onHeadersReceived(callback?:Function): void
+    onProgressUpdate(callback?:Function): void
+  }
 }

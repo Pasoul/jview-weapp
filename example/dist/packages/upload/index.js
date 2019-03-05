@@ -1,10 +1,6 @@
-import { VantComponent } from "../../common/component"; // import { isEmoji } from '/node_modules/jlb-tools';
-
-var EVENT_ADDED = 'files-added';
-var STATUS_READY = 'ready';
-var STATUS_UPLOADING = 'uploading';
-var STATUS_ERROR = 'error';
-var STATUS_SUCCESS = 'success';
+import { VantComponent } from "../../common/component";
+import { uploadFile } from './utils/uploadAli';
+import { EVENT_ADDED, EVENT_SUCCESS, EVENT_ERROR, STATUS_READY, STATUS_ERROR, STATUS_SUCCESS, STATUS_UPLOADING } from './utils/constant';
 VantComponent({
   props: {
     // 使用上传按钮默认样式
@@ -44,43 +40,102 @@ VantComponent({
       type: Boolean,
       value: true
     },
-    // 子配置项,如果 action 是字符串，则会被处理成 { target: action } 这样结构
+    // 子配置项
     action: {
-      type: null,
-      default: ""
+      type: Object,
+      value: {
+        aliyunServerURL: '',
+        aliyunTokenURL: '',
+        ossDomain: ''
+      }
     },
     // 并发上传数
     simultaneousUploads: {
       type: Number,
-      value: 1
+      value: 4
     }
   },
   data: {
-    files: [],
-    actionOptions: ""
-  },
-  mounted: function mounted() {
-    console.log(11); // console.log(isEmoji('😈'))
+    files: []
   },
   methods: {
+    processFile: function processFile(file) {
+      file['status'] = STATUS_READY;
+      file['fileProgress'] = '0%';
+      file['statusCls'] = '';
+      file['resultUrl'] = '';
+      return file;
+    },
     upload: function upload(retry) {
-      var options = this.actionOptions;
-      if (!options) return;
+      var _this = this;
+
+      var _this$data$action = this.data.action,
+          aliyunTokenURL = _this$data$action.aliyunTokenURL,
+          aliyunServerURL = _this$data$action.aliyunServerURL,
+          ossDomain = _this$data$action.ossDomain;
+      if (this.paused || !aliyunTokenURL || !aliyunServerURL) return;
       var len = this.data.files.length;
       var uploadingCount = 0,
-          i = 0;
+          i = 0,
+          self = this;
 
-      while (i < len && uploadingCount < this.data.simultaneousUploads) {
-        var file = this.data.files[i];
+      var _loop = function _loop() {
+        var file = _this.data.files[i];
         var status = file.status; // _retryId防止错误文件重复上传
 
-        if (status === STATUS_READY || retry && status === STATUS_ERROR && file._retryId !== this.retryId) {// if (status === STATUS_ERROR) {
-          // }
+        if (status === STATUS_READY || retry && status === STATUS_ERROR && file._retryId !== _this.retryId) {
+          (function (i) {
+            uploadFile({
+              tempFile: file,
+              aliyunTokenURL: aliyunTokenURL,
+              aliyunServerURL: aliyunServerURL,
+              callback: function callback(uploadTask) {
+                uploadTask.onProgressUpdate(function (res) {
+                  self.set({
+                    ["files[" + i + "].fileProgress"]: res.progress + '%'
+                  });
+                });
+              }
+            }).then(function (aliyunFileKey) {
+              self.set({
+                ["files[" + i + "].statusCls"]: STATUS_SUCCESS,
+                ["files[" + i + "].status"]: STATUS_SUCCESS,
+                ["files[" + i + "].resultUrl"]: ossDomain ? ossDomain + aliyunFileKey : aliyunFileKey
+              }).then(function () {
+                // 派发文件上传成功事件
+                self.$emit(EVENT_SUCCESS, file);
+                self.upload(retry);
+              });
+            }).catch(function (err) {
+              self.set({
+                ["files[" + i + "].statusCls"]: STATUS_ERROR,
+                ["files[" + i + "].status"]: STATUS_ERROR
+              }).then(function () {
+                // 派发文件上传失败事件
+                self.$emit(EVENT_ERROR, file);
+                self.upload(retry);
+              });
+            });
+          })(i);
+
+          if (status === STATUS_ERROR) {
+            file._retryId = _this.retryId;
+          }
+
+          uploadingCount++;
+        } else if (status == STATUS_UPLOADING) {
+          uploadingCount++;
         }
+
+        i++;
+      };
+
+      while (i < len && uploadingCount < this.data.simultaneousUploads) {
+        _loop();
       }
     },
     chooseImage: function chooseImage() {
-      var _this = this;
+      var _this2 = this;
 
       var _this$data$imageOptio = this.data.imageOption,
           _this$data$imageOptio2 = _this$data$imageOptio.count,
@@ -97,7 +152,7 @@ VantComponent({
           var tempFiles = res.tempFiles,
               tempFilePaths = res.tempFilePaths; // 选择完文件后触发，一般可用作文件过滤
 
-          _this.$emit(EVENT_ADDED, {
+          _this2.$emit(EVENT_ADDED, {
             tempFiles: tempFiles,
             tempFilePaths: tempFilePaths
           });
@@ -107,13 +162,16 @@ VantComponent({
               file = tempFiles[i];
 
           while (newFiles.length < count && file) {
+            // 处理file
+            file = _this2.processFile(file);
+
             if (!file.ignore) {
               newFiles.push(file);
 
-              _this.set({
-                "files[i]": file
+              _this2.set({
+                files: _this2.data.files.concat(file)
               }).then(function () {
-                _this.upload();
+                _this2.upload();
               });
             }
 
@@ -128,7 +186,7 @@ VantComponent({
      * 如果图片和视频都能选择，需要提示用户选择图片还是选择视频
      */
     chooseFile: function chooseFile() {
-      var _this2 = this;
+      var _this3 = this;
 
       var _this$data = this.data,
           chooseImage = _this$data.chooseImage,
@@ -139,9 +197,9 @@ VantComponent({
           itemList: ["选择图片", "选择视频"],
           success: function success(res) {
             if (res.tapIndex === 0) {
-              _this2.chooseImage();
+              _this3.chooseImage();
             } else if (res.tapIndex === 1) {
-              _this2.chooseVideo();
+              _this3.chooseVideo();
             }
           }
         });
@@ -151,21 +209,20 @@ VantComponent({
         this.chooseVideo();
       }
     },
-    fileClick: function fileClick() {}
-  },
-  watch: {
-    "action": function action(newVal) {
-      if (typeof newVal === 'string') {
-        this.setData({
-          actionOptions: newVal ? {
-            target: newVal
-          } : null
-        });
-      } else {
-        this.setData({
-          actionOptions: newVal
-        });
-      }
+    fileClick: function fileClick() {},
+    abort: function abort() {
+      this.paused = true;
+      this.data.files.forEach(function (file) {
+        console.log(file); // if (file.status === STATUS_UPLOADING) {
+        //   file.task.abort();
+        //   file.status = STATUS_READY;
+        // }
+      });
+    },
+    retry: function retry() {
+      this.paused = false;
+      this.retryId = Date.now();
+      this.upload(true);
     }
   }
 });

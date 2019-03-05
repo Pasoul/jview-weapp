@@ -1,3 +1,5 @@
-<view >
-  <van-upload></van-upload>
+<view class="van-upload">
+  <van-upload id="vanUpload1" action="{{action}}" bind:file-success="fileSuccess"></van-upload>
+  <button type="primary" class="van-upload_btn" bindtap="abort">中断上传</button>
+  <button type="primary" class="van-upload_btn" bindtap="retry">重新上传</button>
 </view>

@@ -1,11 +1,21 @@
 import { VantComponent } from "../../common/component";
-// import { isEmoji } from '/node_modules/jlb-tools';
-const EVENT_ADDED = 'files-added';
+import { uploadFile } from './utils/uploadAli';
+import { 
+  EVENT_ADDED, 
+  EVENT_SUCCESS,
+  EVENT_ERROR,
+  STATUS_READY, 
+  STATUS_ERROR, 
+  STATUS_SUCCESS, 
+  STATUS_UPLOADING
+} from './utils/constant';
 
-const STATUS_READY = 'ready';
-const STATUS_UPLOADING = 'uploading';
-const STATUS_ERROR = 'error';
-const STATUS_SUCCESS = 'success';
+export interface TempFile extends Weapp.TempFile {
+  status?: string
+  fileProgress?:string
+  statusCls?:string
+  resultUrl?:string
+}
 
 VantComponent({
   props: {
@@ -46,41 +56,85 @@ VantComponent({
       type: Boolean,
       value: true
     },
-    // 子配置项,如果 action 是字符串，则会被处理成 { target: action } 这样结构
+    // 子配置项
     action: {
-      type: null,
-      default: ""
+      type: Object,
+      value: {
+        aliyunServerURL: '',
+        aliyunTokenURL: '',
+        ossDomain: ''
+      }
     },
     // 并发上传数
     simultaneousUploads: {
       type: Number,
-      value: 1
+      value: 4
     }
   },
   data: {
     files: [],
-    actionOptions: ""
-  },
-  mounted() {
-    console.log(11);
-    
-    // console.log(isEmoji('😈'))
   },
   methods: {
-    upload(retry) {
-      const options = this.actionOptions;
-      if (!options) return;
+    processFile(file:TempFile):TempFile {
+      file['status'] = STATUS_READY;
+      file['fileProgress'] = '0%';
+      file['statusCls'] = '';
+      file['resultUrl'] = ''
+      return file
+    },
+    upload(retry?:boolean) {
+      const { aliyunTokenURL, aliyunServerURL, ossDomain } = this.data.action;
+      if ( this.paused || !aliyunTokenURL || !aliyunServerURL ) return;
       const len = this.data.files.length;
-      let uploadingCount = 0, i = 0;
+      let uploadingCount = 0, i = 0, self = this;
       while (i < len && uploadingCount < this.data.simultaneousUploads) {
         const file = this.data.files[i];
         const status = file.status;
         // _retryId防止错误文件重复上传
         if (status === STATUS_READY || (retry && status === STATUS_ERROR && file._retryId !== this.retryId)) {
-          // if (status === STATUS_ERROR) {
-
-          // }
+          (function(i) {
+            uploadFile({
+              tempFile: file, 
+              aliyunTokenURL: aliyunTokenURL, 
+              aliyunServerURL: aliyunServerURL,
+              callback: (uploadTask) => {
+                uploadTask.onProgressUpdate(res => {
+                  self.set({
+                    ["files["+i+"].fileProgress"]: res.progress + '%'
+                  })
+                })
+              }
+            }).then((aliyunFileKey) => {
+              self.set({
+                ["files["+i+"].statusCls"]: STATUS_SUCCESS,
+                ["files["+i+"].status"]: STATUS_SUCCESS,
+                ["files["+i+"].resultUrl"]: ossDomain ? ossDomain + aliyunFileKey : aliyunFileKey
+              }).then(() => {
+                // 派发文件上传成功事件
+                self.$emit(EVENT_SUCCESS, file);
+                self.upload(retry);
+              })
+              
+            }).catch(err => {
+              self.set({
+                ["files["+i+"].statusCls"]: STATUS_ERROR,
+                ["files["+i+"].status"]: STATUS_ERROR
+              }).then(() => {
+                // 派发文件上传失败事件
+                self.$emit(EVENT_ERROR, file);
+                self.upload(retry);
+              })
+            })
+          })(i)
+          if (status === STATUS_ERROR) {
+            file._retryId = this.retryId;
+          }
+          uploadingCount ++;
+        } else if (status == STATUS_UPLOADING) {
+          uploadingCount ++;
         }
+        
+        i++;
       }
     },
     chooseImage() {
@@ -100,10 +154,12 @@ VantComponent({
           const newFiles = [];
           let i = 0, file = tempFiles[i];
           while (newFiles.length < count && file) {
+            // 处理file
+            file = this.processFile(file);
             if (!file.ignore) {
               newFiles.push(file);
               this.set({
-                "files[i]": file
+               files: this.data.files.concat(file)
               }).then(() => {
                 this.upload()
               })
@@ -138,19 +194,22 @@ VantComponent({
     },
     fileClick() {
 
-    }
-  },
-  watch: {
-    "action": function(newVal) {
-      if (typeof newVal === 'string') {
-        this.setData({
-          actionOptions: newVal ? { target: newVal } : null
-        })
-      } else {
-        this.setData({
-          actionOptions: newVal
-        })
-      }
+    },
+    abort() {
+      this.paused = true;
+      this.data.files.forEach(file => {
+        console.log(file);
+        
+        // if (file.status === STATUS_UPLOADING) {
+        //   file.task.abort();
+        //   file.status = STATUS_READY;
+        // }
+      })
+    },
+    retry() {
+      this.paused = false;
+      this.retryId = Date.now();
+      this.upload(true);
     }
   }
 })

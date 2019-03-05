@@ -3,6 +3,7 @@
   .van-upload_btn{
     position: relative;
     overflow: hidden;
+    display: inline-block;
     .van-upload_btn--def{
       position: relative;
       width: 80px;
@@ -27,6 +28,56 @@
         &::after{
           transform: translate(-50%, -50%) rotate(90deg);
         }
+      }
+    }
+  }
+  .van-upload_file{
+    display: inline-block;
+    &--def{
+      display: inline-block;
+      position: relative;
+      margin: 0 0 10px 10px;
+    }
+    &--preview{
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 2px;
+    }
+    &--remove{
+      position: absolute;
+      z-index: 2;
+      top: -6px;
+      right: -6px;
+      width: 18px;
+      height: 18px;
+      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAMAAABiM0N1AAAAWlBMVEUAAAAAAAAQEBATExPY2NgAAAAAAAAAAAAAAADa2trW1tYAAAAAAAAAAAAAAAAAAAAAAAB3d3cMDAwAAAAAAAAAAAAAAADc3Nzi4uLS0tJxcXFnZ2cAAAD////AFaZDAAAAHXRSTlOAAIOE3QV2Wjnf3HhpRywcEKaCcGcyIt/k2KOfM5yDZOMAAAHhSURBVFjDtdjpdoIwEIbhjyWENgmJRWzVcv+32XSh1GbIIIPvT87JI+iRLCgy+cFp2zdA01vtBl9kWoRCqw3+ZXQb7oNUp7GQ7tRqSLUNMjUtRYFlaIqHvMWKrGcg5bAyp3JQOGJ1x7AMnQzuyJyWoA531tHQO+7unYI6bKhLoRM2dfoPBYNNmXALqSM2dlQ3kMPm3F/IQ5CfIWUhyKpfqIWodoJUA1GN+oFaQH5LoG/o5XAF2eXwQt9ShDrCeRvHc4mkqh7HN0LqviCNpMMYey4T53WMHZCkP6FAPcA4SakzUg8dItSCqJ6k1DnTXzeoJ/sclEjVE4FP6QgZzNHDeAemgAdyUl0mDpnHAF7incg4sNItSuegwUtVzTmRseAl3olMj5z0TfBOZBrwEu9EhqmsE4dJDDWs8yNVDNNzzjqph2Wc+ed/ykkWmneqkpc0XM6ZhvOSw7DoPM+DeWmA5501kkdhGCe9QL/YCp11kkuvpKSXXv7nyUnxGkTtwnR0nT88lS5IC7kJcnZmKTdB0lM2/Zcoz7kpm15EXEB2pRcRey1rdl5oyZd+Oy9G5cvj3Rfs8i3E/psa+TZLvvF73FZUvjmWb9flBwiPPtKQH7LIj33kB1Hyo7HHH9bJjw8/AC5IMUei2WXsAAAAAElFTkSuQmCC') no-repeat center;
+      background-size: contain;
+      border-radius: 50%;
+    }
+    &--state{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity .1s;
+      background-color: @color-mask-bg;
+      overflow: hidden;
+      &--icon{
+        .van-icon_success{
+          color: @green;
+        }
+        .van-icon_fail{
+          color: @error-color;
+        }
+      }
+      &--progress{
+        color: #fff;
+        font-size: 20px;
       }
     }
   }
