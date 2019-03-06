@@ -13,3 +13,9 @@ export const STATUS_READY = 'ready';
 export const STATUS_UPLOADING = 'uploading';
 export const STATUS_ERROR = 'error';
 export const STATUS_SUCCESS = 'success';
+
+/**
+ * file type
+ */
+export const TYPE_IMAGE = 'image';
+export const TYPE_VIDEO = 'video';

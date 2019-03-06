@@ -1,20 +1,20 @@
 import { Base64 } from './base64';
 import { Crypto } from './crypto'
 import { getAliToken } from "./ajax";
-import { STATUS_UPLOADING } from './constant';
+import { STATUS_UPLOADING, TYPE_IMAGE, TYPE_VIDEO } from './constant';
 import "./hmac.js";
 import "./sha1.js";
-import { TempFile } from '../index'
+// import { TempFileImage } from '../index'
 
-interface uploadFile {
-  tempFile: TempFile
-  aliyunTokenURL: string
-  aliyunServerURL: string
-  callback(uploadTask:Weapp.UploadTask):void
-}
+// interface uploadFile {
+//   tempFile: TempFileImage
+//   aliyunTokenURL: string
+//   aliyunServerURL: string
+//   callback(uploadTask:Weapp.UploadTask):void
+// }
 
-export function uploadFile({tempFile, aliyunTokenURL, aliyunServerURL, callback}: uploadFile) {
-  if (!tempFile || !tempFile.path) {
+export function uploadFile({tempFile, aliyunTokenURL, aliyunServerURL, callback}) {
+  if (!tempFile || !tempFile.uploadPath) {
     wx.showModal({
       title: "图片错误",
       content: "请重试",
@@ -37,10 +37,10 @@ export function uploadFile({tempFile, aliyunTokenURL, aliyunServerURL, callback}
 function uploadHandle(tempFile, res, aliyunServerURL, callback, resolve, reject) {
   const policyBase64 = getPolicyBase64(res.durationSeconds);
   const signature = getSignature(policyBase64, res.accessKeySecret);
-  const aliyunFileKey = "jlboss" + tempFile.path.replace("wxfile://", "").replace("http://", "");
+  const aliyunFileKey = "jlboss" + tempFile.uploadPath.replace("wxfile://", "").replace("http://", "");
   const uploadTask = wx.uploadFile({
     url: aliyunServerURL,
-    filePath: tempFile.path,
+    filePath: tempFile.uploadPath,
     name: "file",
     header: {
       "content-type": "multipart/form-data"

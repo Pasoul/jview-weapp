@@ -1,5 +1,43 @@
 <view class="van-upload">
-  <van-upload id="vanUpload1" action="{{action}}" bind:file-success="fileSuccess"></van-upload>
-  <button type="primary" class="van-upload_btn" bindtap="abort">中断上传</button>
-  <button type="primary" class="van-upload_btn" bindtap="retry">重新上传</button>
+  <view>默认使用:</view>
+  <van-upload id="vanUpload1" 
+              action="{{action}}" 
+              preview="{{preview}}"
+              play="{{play}}"
+              simultaneousUploads="{{simultaneousUploads}}"
+              autoUpload="{{autoUpload}}"
+              chooseImage="{{chooseImage}}"
+              chooseVideo="{{chooseVideo}}"
+              bind:file-click="fileClick"
+              bind:file-success="fileSuccess" 
+              bind:file-removed="fileRemoved"></van-upload>
+  <view class="van-upload_switch">
+    默认预览图片：<switch checked bindchange="switchPreview" />
+  </view>
+  <view class="van-upload_switch">
+    默认播放视频：<switch checked bindchange="switchPlay" />
+  </view>
+  <view class="van-upload_switch">
+    默认自动上传：<switch checked bindchange="switchUpload" />
+  </view>
+  <view class="van-upload_switch">
+    默认上传图片：<switch checked bindchange="switchImage" />
+  </view>
+  <view class="van-upload_switch">
+    默认上传视频：<switch checked bindchange="switchVideo" />
+  </view>
+  <button type="primary" class="van-upload_btn--default" bindtap="abort">中断上传</button>
+  <button type="primary" class="van-upload_btn--default" bindtap="retry">重新上传</button>
+  <view>使用slot:</view>
+   <van-upload id="vanUpload1" 
+              action="{{action}}" 
+              preview="{{preview}}"
+              play="{{play}}"
+              useDefaultBtn="{{useDefaultBtn}}"
+              useDefaultFile="{{useDefaultFile}}"
+              simultaneousUploads="{{simultaneousUploads}}"
+              autoUpload="{{autoUpload}}"
+              bind:file-click="fileClick"
+              bind:file-success="fileSuccess" 
+              bind:file-removed="fileRemoved"></van-upload>
 </view>

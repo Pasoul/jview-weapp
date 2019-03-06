@@ -14,3 +14,9 @@ export var STATUS_READY = 'ready';
 export var STATUS_UPLOADING = 'uploading';
 export var STATUS_ERROR = 'error';
 export var STATUS_SUCCESS = 'success';
+/**
+ * file type
+ */
+
+export var TYPE_IMAGE = 'image';
+export var TYPE_VIDEO = 'video';

@@ -1,6 +1,9 @@
 .van-upload{
   padding-top: 10px;
 }
-.van-upload_btn{
+.van-upload_btn--default{
+  margin: 10px 0;
+}
+.van-upload_switch{
   margin-top: 10px;
 }

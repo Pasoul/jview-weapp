@@ -91,9 +91,18 @@ declare namespace Weapp {
     selectComponent(selector: string): Component
   }
 
-  interface TempFile {
+  interface TempFileImage {
     path: string
     size: number
+  }
+
+  interface TempFileVideo {
+    duration: number
+    width: number
+    height: number
+    size: number
+    tempFilePath: string
+    thumbTempFilePath: string
   }
 
   interface UploadTask {
