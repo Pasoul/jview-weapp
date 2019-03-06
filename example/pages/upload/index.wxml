@@ -29,15 +29,24 @@
   <button type="primary" class="van-upload_btn--default" bindtap="abort">中断上传</button>
   <button type="primary" class="van-upload_btn--default" bindtap="retry">重新上传</button>
   <view>使用slot:</view>
-   <van-upload id="vanUpload1" 
+  <view class="van-upload-slot_wrapper">
+    <van-upload id="vanUpload2" 
               action="{{action}}" 
-              preview="{{preview}}"
-              play="{{play}}"
               useDefaultBtn="{{useDefaultBtn}}"
               useDefaultFile="{{useDefaultFile}}"
-              simultaneousUploads="{{simultaneousUploads}}"
-              autoUpload="{{autoUpload}}"
-              bind:file-click="fileClick"
-              bind:file-success="fileSuccess" 
-              bind:file-removed="fileRemoved"></van-upload>
+              simultaneousUploads="{{simultaneousUploads2}}"
+              autoUpload="{{autoUpload2}}"
+              bind:file-click="fileClick2"
+              bind:file-success="fileSuccess2">
+      <view class="van-upload-slot_btn" slot="btn" style="opacity: {{hideUploadBtn ? 0 : 1}}">
+        <view class="van-upload-slot_btn_add">+</view>
+        <text class="van-upload-slot_btn_text">点击上传头像</text>
+      </view>    
+      <view class="van-upload-slot_file" slot="file">
+        <image class="van-upload-slot_image" src="{{previewImage}}" mode="aspectFill"  />
+          
+      </view>          
+    </van-upload>
+  </view>
+     
 </view>

@@ -11,10 +11,15 @@ Page({
     play: true,
     autoUpload: true,
     simultaneousUploads: 1,
-    useDefaultBtn: true,
-    useDefaultFile: true,
     chooseImage: true,
-    chooseVideo: true
+    chooseVideo: true,
+    uploadImage: "",
+    useDefaultBtn: false,
+    useDefaultFile: false,
+    simultaneousUploads2: 1,
+    autoUpload2: true,
+    previewImage: "",
+    hideUploadBtn: false
   },
   fileClick(e) {
     console.log(e);
@@ -63,6 +68,13 @@ Page({
   switchPlay(e) {
     this.setData({
       play: e.detail.value
+    });
+  },
+  fileClick2(e) {},
+  fileSuccess2(e) {
+    this.setData({
+      hideUploadBtn: true,
+      previewImage: e.detail.previewPath
     });
   }
 });
