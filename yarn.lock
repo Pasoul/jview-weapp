@@ -2002,13 +2002,6 @@ css-selector-tokenizer@^0.7.0:
     fastparse "^1.1.1"
     regexpu-core "^1.0.0"
 
-css-tree@1.0.0-alpha.29:
-  version "1.0.0-alpha.29"
-  resolved "https://registry.yarnpkg.com/css-tree/-/css-tree-1.0.0-alpha.29.tgz#3fa9d4ef3142cbd1c301e7664c1f352bd82f5a39"
-  dependencies:
-    mdn-data "~1.1.0"
-    source-map "^0.5.3"
-
 css-what@2.1:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/css-what/-/css-what-2.1.3.tgz#a6d7604573365fe74686c3f311c56513d88285f2"
@@ -2020,12 +2013,6 @@ cssesc@^0.1.0:
 cssesc@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/cssesc/-/cssesc-2.0.0.tgz#3b13bd1bb1cb36e1bcb5a4dcd27f54c5dcb35703"
-
-csso@^3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/csso/-/csso-3.5.1.tgz#7b9eb8be61628973c1b261e169d2f024008e758b"
-  dependencies:
-    css-tree "1.0.0-alpha.29"
 
 cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   version "0.3.6"
@@ -2684,10 +2671,6 @@ expect@^24.1.0:
     jest-matcher-utils "^24.0.0"
     jest-message-util "^24.0.0"
     jest-regex-util "^24.0.0"
-
-expr-parser@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/expr-parser/-/expr-parser-1.0.0.tgz#b85be870efce3c764977578d4a505795233f9022"
 
 extend-shallow@^1.1.2:
   version "1.1.4"
@@ -4005,13 +3988,6 @@ istanbul-reports@^2.1.1:
   dependencies:
     handlebars "^4.1.0"
 
-j-component@latest:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/j-component/-/j-component-1.1.0.tgz#4bafb23024df07bb7942d12b24edbe4a91103667"
-  dependencies:
-    expr-parser "^1.0.0"
-    miniprogram-exparser latest
-
 jest-changed-files@^24.0.0:
   version "24.0.0"
   resolved "https://registry.yarnpkg.com/jest-changed-files/-/jest-changed-files-24.0.0.tgz#c02c09a8cc9ca93f513166bc773741bd39898ff7"
@@ -4935,10 +4911,6 @@ md5.js@^1.3.4:
     inherits "^2.0.1"
     safe-buffer "^5.1.2"
 
-mdn-data@~1.1.0:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-1.1.4.tgz#50b5d4ffc4575276573c4eedb8780812a8419f01"
-
 mdurl@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/mdurl/-/mdurl-1.0.1.tgz#fe85b2ec75a59037f2adfec100fd6c601761152e"
@@ -5112,19 +5084,6 @@ minipass@^2.2.1, minipass@^2.3.4:
 miniprogram-api-typings@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/miniprogram-api-typings/-/miniprogram-api-typings-2.4.2.tgz#091e358db61ed3ca60eab9640ef4996d97599747"
-
-miniprogram-exparser@latest:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/miniprogram-exparser/-/miniprogram-exparser-0.0.5.tgz#13c331192554cb2a45cdd8d43eebb9e2931cfaa9"
-
-miniprogram-simulate-extend@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/miniprogram-simulate-extend/-/miniprogram-simulate-extend-0.1.0.tgz#168c4ea0d1619ec5a1a647712fb1b6e9f1ce2536"
-  dependencies:
-    csso "^3.5.1"
-    j-component latest
-    less "^3.9.0"
-    postcss "^7.0.14"
 
 minizlib@^1.1.1:
   version "1.2.1"
@@ -6707,7 +6666,7 @@ source-map-url@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/source-map-url/-/source-map-url-0.4.0.tgz#3e935d7ddd73631b97659956d55128e87b5084a3"
 
-source-map@^0.5.0, source-map@^0.5.1, source-map@^0.5.3, source-map@^0.5.6, source-map@~0.5.1:
+source-map@^0.5.0, source-map@^0.5.1, source-map@^0.5.6, source-map@~0.5.1:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
 

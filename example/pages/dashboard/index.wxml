@@ -3,7 +3,7 @@
     <image class="logo" src="https://images2.bestjlb.com/v2jlboss4530891a9add14a2fb1ddf906b7fe37215514534330452825.png" />
     <view class="title-text">jview weapp</view>
   </view>
-  <view class="desc">轻量、可靠的小程序 UI 组件库</view>
+  <view class="desc">面向较复杂业务的UI组件库</view>
 
   <block wx:for="{{ list }}" wx:for-item="group" wx:key="group.title">
     <view class="mobile-nav">

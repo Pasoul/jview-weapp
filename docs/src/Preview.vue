@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img class="preview-image" :src="image">
+    <!-- <img class="preview-image" :src="image"> -->
     <div class="preview-popup">
       <div class="preview-content">
         <img src="https://img.yzcdn.cn/jview-weapp/qrcode-201808101114.jpg">

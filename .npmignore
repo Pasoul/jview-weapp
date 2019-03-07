@@ -13,6 +13,6 @@ docs-private
 docs
 node_modules
 coverage
-demo
+example
 build
 src

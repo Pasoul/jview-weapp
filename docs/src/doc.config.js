@@ -7,14 +7,13 @@ export default {
   header: {
     logo: {
       version,
-      image: 'https://img.yzcdn.cn/public_files/2017/12/18/fd78cf6bb5d12e2a119d0576bedfd230.png',
-      title: 'Vant Weapp',
+      image: 'https://images2.bestjlb.com/v2jlboss4530891a9add14a2fb1ddf906b7fe37215514534330452825.png',
+      title: 'jview-weapp',
       href: '#/'
     },
     nav: {
-      'Vue 组件': 'https://youzan.github.io/vant/',
       '小程序组件': 'https://youzan.github.io/jview-weapp/',
-      github: 'https://github.com/youzan/jview-weapp'
+      github: 'https://github.com/Pasoul/jview-weapp'
     }
   },
   nav: [
