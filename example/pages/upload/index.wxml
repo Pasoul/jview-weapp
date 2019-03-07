@@ -31,6 +31,7 @@
   <view>使用slot:</view>
   <view class="van-upload-slot_wrapper">
     <van-upload id="vanUpload2" 
+              chooseVideo="{{chooseVideo2}}"
               action="{{action}}" 
               useDefaultBtn="{{useDefaultBtn}}"
               useDefaultFile="{{useDefaultFile}}"

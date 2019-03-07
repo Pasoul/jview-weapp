@@ -111,10 +111,9 @@ VantComponent({
       if (type === TYPE_IMAGE) {
         file['previewPath'] = file['uploadPath'] =  file.path;
       } else if (type === TYPE_VIDEO) {
-        file['previewPath'] = file.thumbTempFilePath;
+        // file['previewPath'] = file.thumbTempFilePath;
         file['uploadPath'] = file.tempFilePath;
       }
-    
       return file
     },
     upload(retry?:boolean) {
@@ -140,11 +139,18 @@ VantComponent({
                 })
               }
             }).then((aliyunFileKey) => {
-              console.log(aliyunFileKey);
+              // TODO：thumbTempFilePath真机bug：https://developers.weixin.qq.com/community/search?query=thumbTempFilePath&page=1，暂时用oss处理
+              let previewPath;
+              if (file.type === TYPE_VIDEO) {
+                previewPath = ossDomain 
+                              ? ossDomain + aliyunFileKey + '?x-oss-process=video/snapshot,t_1000,w_750'
+                              : aliyunFileKey;
+              }
               self.set({
                 ["files["+i+"].statusCls"]: STATUS_SUCCESS,
                 ["files["+i+"].status"]: STATUS_SUCCESS,
-                ["files["+i+"].resultUrl"]: ossDomain ? ossDomain + aliyunFileKey : aliyunFileKey
+                ["files["+i+"].resultUrl"]: ossDomain ? ossDomain + aliyunFileKey : aliyunFileKey,
+                ["files["+i+"].previewPath"]: file.type === TYPE_VIDEO ? previewPath : file.previewPath
               }).then(() => {
                 // 派发文件上传成功事件
                 self.$emit(EVENT_SUCCESS, file);

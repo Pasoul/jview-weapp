@@ -16,6 +16,7 @@ Page({
     uploadImage: "",
     useDefaultBtn: false,
     useDefaultFile: false,
+    chooseVideo2: false,
     simultaneousUploads2: 1,
     autoUpload2: true,
     previewImage: "",
