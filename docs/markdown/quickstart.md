@@ -2,7 +2,7 @@
 
 ### 使用之前
 
-使用 Vant Weapp 前，请确保你已经学习过微信官方的 [小程序简易教程](https://mp.weixin.qq.com/debug/wxadoc/dev/) 和 [自定义组件介绍](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/)。
+使用 jview-weapp 前，请确保你已经学习过微信官方的 [小程序简易教程](https://mp.weixin.qq.com/debug/wxadoc/dev/) 和 [自定义组件介绍](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/)。
 
 ### 安装
 
@@ -22,7 +22,7 @@ yarn add jview-weapp --production
 
 直接通过 git 下载 Vant Weapp 源代码，并将`dist`目录拷贝到自己的项目中
 ```bash
-git clone https://github.com/youzan/jview-weapp.git
+git clone https://github.com/Pasoul/jview-weapp.git
 ```
 
 ### 使用组件
@@ -32,7 +32,7 @@ git clone https://github.com/youzan/jview-weapp.git
 ```json
 {
   "usingComponents": {
-    "van-button": "/path/to/jview-weapp/dist/button/index"
+    "van-slide-view": "/path/to/jview-weapp/dist/slide-view/index"
   }
 }
 ```
@@ -40,7 +40,8 @@ git clone https://github.com/youzan/jview-weapp.git
 接着就可以在 wxml 中直接使用组件
 
 ```xml
-<van-button type="primary">按钮</van-button>
+<van-slide-view id="componentId" bind:slideOpen="slideOpen">
+</van-slide-view>
 ```
 
 ### 在开发者工具中预览

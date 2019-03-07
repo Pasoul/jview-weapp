@@ -24,7 +24,6 @@ const registerRoute = () => {
     let { path } = page;
     if (path) {
       path = path.replace('/', '');
-
       const component = () =>
         page.md
           ? import(`../markdown/${path}.md`)

@@ -2,7 +2,6 @@
   <van-doc
     active="小程序组件"
     :config="config"
-    :simulator="simulator"
   >
     <router-view />
   </van-doc>

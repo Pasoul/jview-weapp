@@ -4,7 +4,7 @@ export default [
     list: [
       {
         path: '/slide-view',
-        title: 'slideView侧滑选项卡'
+        title: 'SlideView侧滑选项卡'
       }
     ]
   },
@@ -13,7 +13,7 @@ export default [
     list: [
       {
         path: '/water-fall',
-        title: 'waterFall瀑布流'
+        title: 'WaterFall瀑布流'
       }
     ]
   },
@@ -22,7 +22,7 @@ export default [
     list: [
       {
         path: '/upload',
-        title: 'upload'
+        title: 'Upload'
       }
     ]
   }

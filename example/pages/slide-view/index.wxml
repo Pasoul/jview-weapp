@@ -1,5 +1,10 @@
 <view class='slide' wx:for="{{lists}}" wx:key="id">
-  <van-slide-view id="{{'componentId' + item.id}}" bind:slideOpen="slideOpen" width="750" height="110" slide-width="500">
+  <van-slide-view id="{{'componentId' + item.id}}" 
+                  bind:slideOpen="slideOpen" 
+                  bind:slideClose="slideClose" 
+                  width="750"
+                  height="110" 
+                  slide-width="500">
     <view slot="left" class="l" data-id="{{'componentId' + item.id}}" bindtap="close">
       <image src="{{item.img}}" class="img"></image>
       <view class='text'>

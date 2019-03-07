@@ -4,26 +4,24 @@ var _windowWidth = wx.getSystemInfoSync().windowWidth; // (px)
 import { VantComponent } from "../../common/component";
 VantComponent({
   props: {
-    //  组件显示区域的宽度 (rpx)
+    //  slide-view组件的宽度
     width: {
       type: Number,
       value: 750 // 750rpx 即整屏宽
 
     },
-    //  组件显示区域的高度 (rpx)
+    //  slide-view组件的高度
     height: {
       type: Number,
       value: 0
     },
-    //  组件滑动显示区域的宽度 (rpx)
+    //  滑动展示区域的宽度（默认高度与slide-view相同）
     slideWidth: {
       type: Number,
       value: 0
     }
   },
   data: {
-    viewWidth: _windowWidth,
-    // (rpx)
     //  movable-view偏移量
     x: 0,
     //  movable-view是否可以出界
@@ -46,10 +44,6 @@ VantComponent({
         _this._slideWidth = res.width;
         _this._threshold = res.width / 3;
         _this._viewWidth = _this.data.width + res.width * (750 / _windowWidth);
-
-        _this.setData({
-          viewWidth: _this._viewWidth
-        });
       });
     },
     onTouchStart: function onTouchStart(e) {
@@ -95,11 +89,6 @@ VantComponent({
         this.setData({
           x: 0
         });
-      } else if (_endX - _startX < _threshold && _endX - _startX > 0) {
-        this.setData({
-          x: -this._slideWidth
-        }); // 通知父组件关闭slide-view
-
         this.$emit("slideClose");
       }
     },

@@ -39,7 +39,8 @@ export default {
             },
             {
               path: '/common',
-              title: '内置样式'
+              title: '内置样式',
+              md: true
             }
           ]
         }

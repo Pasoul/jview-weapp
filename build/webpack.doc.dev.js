@@ -3,6 +3,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 
+function getIPAdress() {
+  var interfaces = require("os").networkInterfaces();
+  for (var devName in interfaces) {
+    var iface = interfaces[devName];
+    for (var i = 0; i < iface.length; i++) {
+      var alias = iface[i];
+      if (alias.family === "IPv4" && alias.address !== "127.0.0.1" && !alias.internal) {
+        return alias.address;
+      }
+    }
+  }
+}
+
 module.exports = {
   mode: 'development',
   entry: {
@@ -20,7 +33,7 @@ module.exports = {
   },
   serve: {
     open: true,
-    host: '0.0.0.0',
+    host: getIPAdress(),
     devMiddleware: {
       logLevel: 'warn'
     },

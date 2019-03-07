@@ -17,6 +17,9 @@ Page({
       }
     ]
   },
+  slideClose(e) {
+    console.log('滑动关闭');
+  },
   slideOpen(e) {
     const componentId = e.currentTarget.id;
     for (let i = 0, len = this.data.lists.length; i < len; i++) {

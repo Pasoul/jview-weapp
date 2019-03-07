@@ -1,9 +1,8 @@
 <template>
   <div>
-    <!-- <img class="preview-image" :src="image"> -->
     <div class="preview-popup">
       <div class="preview-content">
-        <img src="https://img.yzcdn.cn/jview-weapp/qrcode-201808101114.jpg">
+        <img src="https://images2.bestjlb.com/v2jlboss7f041115a20c5284fbeafe063ffce17315519441744464027.jpeg">
         <p>微信扫码体验</p>
       </div>
     </div>
@@ -11,20 +10,9 @@
 </template>
 
 <script>
-const PREFIX = 'https://img.yzcdn.cn/jview-weapp/';
-const MAP = {
-  index: 'index-201808121630.png',
-  col: 'layout-201808092138.png',
-  transition: 'transition-20180821.png'
-};
 
 export default {
-  computed: {
-    image() {
-      const hash = location.hash.slice(1);
-      return PREFIX + (MAP[hash] || MAP.index);
-    }
-  }
+  
 };
 </script>
 
@@ -57,10 +45,7 @@ body {
     background-color: rgba(255, 255, 255, .95);
     transition: .3s;
     text-align: center;
-
-    &:hover {
-      opacity: 1;
-    }
+    opacity: 1;
   }
 
   &-content {
