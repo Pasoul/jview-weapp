@@ -29,7 +29,9 @@
     默认上传视频：<switch checked bindchange="switchVideo" />
   </view>
   <button type="primary" class="van-upload_btn--default" bindtap="abort">中断上传</button>
-  <button type="primary" class="van-upload_btn--default" bindtap="retry">重新上传</button>
+  <button type="primary" class="van-upload_btn--default" bindtap="start">开始上传</button>
+  <button type="primary" class="van-upload_btn--default" bindtap="retry">重试上传</button>
+  <button type="primary" class="van-upload_btn--default" bindtap="removeFile">删除最后一个</button>
   <view>使用slot:</view>
   <view class="van-upload-slot_wrapper">
     <van-upload id="vanUpload2" 

@@ -91,16 +91,19 @@ VantComponent({
     videoSrc: "",
   },
   methods: {
-    removeFile(e) {
-      let index = e.currentTarget.dataset.index;
+    removeFile(e, index?:number) {
+      let fileIndex = e ? e.currentTarget.dataset.index : index;
+      if(index < 0) return;
       const files = this.data.files;
-      const file = files[index];
+      const file = files[fileIndex];
       this.$emit(EVENT_REMOVED, file);
       file.task && file.task.abort();
-      files.splice(index, 1);
+      files.splice(fileIndex, 1);
       this.set({
         files
-      })
+      });
+      // files数组改变，需要重新调用upload计算总上传文件数
+      this.upload();
     },
     processFile(file, type:string){
       file['status'] = STATUS_READY;
@@ -310,6 +313,10 @@ VantComponent({
       } else if (this.data.play && file.type === TYPE_VIDEO) {
         this.playVideo(file)
       }
+    },
+    start() {
+      this.paused = false
+      this.upload()
     },
     abort() {
       this.paused = true;

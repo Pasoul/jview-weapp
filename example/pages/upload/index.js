@@ -70,6 +70,14 @@ Page({
   fileRemoved(file) {
     console.log(file);
   },
+  removeFile() {
+    const component = this.selectComponent(`#vanUpload1`);
+    const files = component.data.files;
+    component.removeFile(null, files.length - 1);
+  },
+  start() {
+    this.selectComponent(`#vanUpload1`).start();
+  },
   abort() {
     this.selectComponent(`#vanUpload1`).abort();
   },
