@@ -126,7 +126,7 @@ VantComponent({
       if (this.data.play && type === 3) {
         this.playVideo(item)
       }
-      this.$emit('clickImg', item);
+      this.$emit('fileClick', item);
     }
   },
   watch: {

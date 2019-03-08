@@ -1,7 +1,7 @@
 /**
  * event name
  */
-export const EVENT_ADDED = 'files-added';
+export const EVENT_ADDED = 'file-add';
 export const EVENT_SUCCESS = 'file-success';
 export const EVENT_ERROR = 'file-error';
 export const EVENT_CLICK = 'file-click';

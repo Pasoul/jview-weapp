@@ -22,6 +22,35 @@ Page({
     previewImage: "",
     hideUploadBtn: false
   },
+  fileAdd(e) {
+    const errMsg = e.detail.errMsg || "";
+    if (!errMsg) return;
+    if (errMsg === "chooseImage:ok") {
+      let hasIgnore = false;
+      const maxSize = 1 * 1024 * 1024; // 1M
+      const files = e.detail.tempFiles;
+      for (const k in files) {
+        const file = files[k];
+        if (file.size > maxSize) {
+          file.ignore = true;
+          hasIgnore = true;
+        }
+      }
+      hasIgnore && wx.showToast({
+        title: '选取图片大于1M',
+        icon: 'none'
+      });
+    } else if (errMsg === "chooseVideo:ok") {
+      const maxSize = 3 * 1024 * 1024; // 1M
+      if (e.detail.size > maxSize) {
+        e.detail.ignore = true;
+        wx.showToast({
+          title: '选取视频大于3M',
+          icon: 'none'
+        });
+      }
+    }
+  },
   fileClick(e) {
     console.log(e);
     const { type, size } = e.detail;
@@ -37,6 +66,7 @@ Page({
   fileSuccess(file) {
     // console.log(file);
   },
+  fileError(file) {},
   fileRemoved(file) {
     console.log(file);
   },

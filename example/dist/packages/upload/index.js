@@ -200,9 +200,7 @@ VantComponent({
         success: function success(res) {
           var tempFiles = res.tempFiles; // 选择完文件后触发，一般可用作文件过滤
 
-          _this2.$emit(EVENT_ADDED, _extends({}, res, {
-            type: TYPE_IMAGE
-          }));
+          _this2.$emit(EVENT_ADDED, res);
 
           var newFiles = [];
           var i = 0,
@@ -210,7 +208,7 @@ VantComponent({
 
           while (newFiles.length < count && file) {
             // 处理file
-            file = _this2.processFile(file, TYPE_IMAGE);
+            file = _this2.processFile(_extends({}, file), TYPE_IMAGE);
 
             if (!file.ignore) {
               newFiles.push(file);
@@ -246,11 +244,9 @@ VantComponent({
         camera: camera,
         success: function success(res) {
           // 选择完文件后触发，一般可用作文件过滤
-          _this3.$emit(EVENT_ADDED, _extends({}, res, {
-            type: TYPE_VIDEO
-          }));
+          _this3.$emit(EVENT_ADDED, res);
 
-          var file = _this3.processFile(res, TYPE_VIDEO);
+          var file = _this3.processFile(_extends({}, res), TYPE_VIDEO);
 
           if (!file.ignore) {
             _this3.set({

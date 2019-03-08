@@ -8,8 +8,10 @@
               autoUpload="{{autoUpload}}"
               chooseImage="{{chooseImage}}"
               chooseVideo="{{chooseVideo}}"
+              bind:file-add="fileAdd"
               bind:file-click="fileClick"
               bind:file-success="fileSuccess" 
+              bind:file-error="fileError"
               bind:file-removed="fileRemoved"></van-upload>
   <view class="van-upload_switch">
     默认预览图片：<switch checked bindchange="switchPreview" />

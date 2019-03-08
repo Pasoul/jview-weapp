@@ -148,7 +148,7 @@ VantComponent({
         this.playVideo(item);
       }
 
-      this.$emit('clickImg', item);
+      this.$emit('fileClick', item);
     }
   },
   watch: {

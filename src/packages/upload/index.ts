@@ -192,12 +192,12 @@ VantComponent({
         success: res => {
           const {tempFiles} = res;
           // 选择完文件后触发，一般可用作文件过滤
-          this.$emit(EVENT_ADDED, {...res, type: TYPE_IMAGE})
+          this.$emit(EVENT_ADDED, res)
           const newFiles = [];
           let i = 0, file = tempFiles[i];
           while (newFiles.length < count && file) {
             // 处理file
-            file = this.processFile(file, TYPE_IMAGE);
+            file = this.processFile({...file}, TYPE_IMAGE);
             if (!file.ignore) {
               newFiles.push(file);
               this.set({
@@ -225,8 +225,8 @@ VantComponent({
         camera,
         success: (res) => {
           // 选择完文件后触发，一般可用作文件过滤
-          this.$emit(EVENT_ADDED, {...res, type: TYPE_VIDEO})
-          let file = this.processFile(res, TYPE_VIDEO);
+          this.$emit(EVENT_ADDED, res)
+          let file = this.processFile({...res}, TYPE_VIDEO);
           if (!file.ignore) {
             this.set({
               files: this.data.files.concat(file)

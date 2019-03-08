@@ -186,9 +186,10 @@ Page({
     lists: lists,
     hasMore: true,
     width: 345,
-    preview: true
+    preview: true,
+    play: true
   },
-  onImgTap(e) {
+  onFileClick(e) {
     const { id, type } = e.detail;
     console.log(`当前点击项：id: ${id}, type: ${type}`);
   },
