@@ -2,7 +2,7 @@
   <div>
     <div class="preview-popup">
       <div class="preview-content">
-        <img src="https://images2.bestjlb.com/v2jlboss7f041115a20c5284fbeafe063ffce17315519441744464027.jpeg">
+        <img src="https://media.bestjlb.com/v2jlboss7f041115a20c5284fbeafe063ffce17315520370052162796.jpeg">
         <p>微信扫码体验</p>
       </div>
     </div>

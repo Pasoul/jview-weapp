@@ -7,12 +7,11 @@ export default {
   header: {
     logo: {
       version,
-      image: 'https://images2.bestjlb.com/v2jlboss4530891a9add14a2fb1ddf906b7fe37215514534330452825.png',
+      image: 'https://media.bestjlb.com/v2jlboss4530891a9add14a2fb1ddf906b7fe37215520368672058432.png',
       title: 'jview-weapp',
       href: '#/'
     },
     nav: {
-      '小程序组件': 'https://youzan.github.io/jview-weapp/',
       github: 'https://github.com/Pasoul/jview-weapp'
     }
   },
