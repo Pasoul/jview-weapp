@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="logo" src="https://images2.bestjlb.com/v2jlboss4530891a9add14a2fb1ddf906b7fe37215514534330452825.png" width="120" style="margin-bottom: 10px;">
+    <img alt="logo" src="https://media.bestjlb.com/v2jlboss4530891a9add14a2fb1ddf906b7fe37215520368672058432.png" width="120" style="margin-bottom: 10px;">
 </p>
 <h3 align="center">面向较复杂业务的UI组件库</h3>
 
@@ -17,4 +17,4 @@ jview-weapp是基于名片小程序业务进行UI组件封装的初步尝试，�
 
 ### 快速上手
 
-请参考 [快速上手](#/quickstart)
+请参考 [快速上手](https://pasoul.github.io/jview-weapp/#/quickstart)
