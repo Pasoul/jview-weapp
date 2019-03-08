@@ -288,7 +288,7 @@ VantComponent({
     },
     previewImage(file) {
       let imageLists = this.data.files.reduce((arr, item) => {
-        if (item.type === TYPE_IMAGE) {
+        if (item.type === TYPE_IMAGE && item.status === STATUS_SUCCESS) {
           arr.push(item.resultUrl)
         }
         return arr;
@@ -315,7 +315,7 @@ VantComponent({
       this.paused = true;
       this.data.files.forEach(file => {
         if (file.status === STATUS_UPLOADING) {
-          file.task.abort();
+          file.task && file.task.abort();
           file.status = STATUS_READY;
         }
       })

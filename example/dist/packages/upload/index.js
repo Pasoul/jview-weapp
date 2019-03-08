@@ -324,7 +324,7 @@ VantComponent({
     },
     previewImage: function previewImage(file) {
       var imageLists = this.data.files.reduce(function (arr, item) {
-        if (item.type === TYPE_IMAGE) {
+        if (item.type === TYPE_IMAGE && item.status === STATUS_SUCCESS) {
           arr.push(item.resultUrl);
         }
 
@@ -352,7 +352,7 @@ VantComponent({
       this.paused = true;
       this.data.files.forEach(function (file) {
         if (file.status === STATUS_UPLOADING) {
-          file.task.abort();
+          file.task && file.task.abort();
           file.status = STATUS_READY;
         }
       });
