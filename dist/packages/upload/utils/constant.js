@@ -1,7 +1,7 @@
 /**
  * event name
  */
-export var EVENT_ADDED = 'files-added';
+export var EVENT_ADDED = 'file-add';
 export var EVENT_SUCCESS = 'file-success';
 export var EVENT_ERROR = 'file-error';
 export var EVENT_CLICK = 'file-click';

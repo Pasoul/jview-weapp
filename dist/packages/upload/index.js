@@ -80,16 +80,19 @@ VantComponent({
     videoSrc: ""
   },
   methods: {
-    removeFile: function removeFile(e) {
-      var index = e.currentTarget.dataset.index;
+    removeFile: function removeFile(e, index) {
+      var fileIndex = e ? e.currentTarget.dataset.index : index;
+      if (index < 0) return;
       var files = this.data.files;
-      var file = files[index];
+      var file = files[fileIndex];
       this.$emit(EVENT_REMOVED, file);
       file.task && file.task.abort();
-      files.splice(index, 1);
+      files.splice(fileIndex, 1);
       this.set({
         files: files
-      });
+      }); // files数组改变，需要重新调用upload计算总上传文件数
+
+      this.upload();
     },
     processFile: function processFile(file, type) {
       file['status'] = STATUS_READY;
@@ -200,9 +203,7 @@ VantComponent({
         success: function success(res) {
           var tempFiles = res.tempFiles; // 选择完文件后触发，一般可用作文件过滤
 
-          _this2.$emit(EVENT_ADDED, _extends({}, res, {
-            type: TYPE_IMAGE
-          }));
+          _this2.$emit(EVENT_ADDED, res);
 
           var newFiles = [];
           var i = 0,
@@ -210,7 +211,7 @@ VantComponent({
 
           while (newFiles.length < count && file) {
             // 处理file
-            file = _this2.processFile(file, TYPE_IMAGE);
+            file = _this2.processFile(_extends({}, file), TYPE_IMAGE);
 
             if (!file.ignore) {
               newFiles.push(file);
@@ -246,11 +247,9 @@ VantComponent({
         camera: camera,
         success: function success(res) {
           // 选择完文件后触发，一般可用作文件过滤
-          _this3.$emit(EVENT_ADDED, _extends({}, res, {
-            type: TYPE_VIDEO
-          }));
+          _this3.$emit(EVENT_ADDED, res);
 
-          var file = _this3.processFile(res, TYPE_VIDEO);
+          var file = _this3.processFile(_extends({}, res), TYPE_VIDEO);
 
           if (!file.ignore) {
             _this3.set({
@@ -324,7 +323,7 @@ VantComponent({
     },
     previewImage: function previewImage(file) {
       var imageLists = this.data.files.reduce(function (arr, item) {
-        if (item.type === TYPE_IMAGE) {
+        if (item.type === TYPE_IMAGE && item.status === STATUS_SUCCESS) {
           arr.push(item.resultUrl);
         }
 
@@ -348,11 +347,15 @@ VantComponent({
         this.playVideo(file);
       }
     },
+    start: function start() {
+      this.paused = false;
+      this.upload();
+    },
     abort: function abort() {
       this.paused = true;
       this.data.files.forEach(function (file) {
         if (file.status === STATUS_UPLOADING) {
-          file.task.abort();
+          file.task && file.task.abort();
           file.status = STATUS_READY;
         }
       });
