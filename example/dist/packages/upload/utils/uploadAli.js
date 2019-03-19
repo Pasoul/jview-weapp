@@ -65,6 +65,7 @@ function uploadHandle(tempFile, res, aliyunServerURL, callback, resolve, reject)
       }
     },
     fail: function fail(err) {
+      console.log(JSON.stringify(err));
       reject({
         tempFile: tempFile
       });

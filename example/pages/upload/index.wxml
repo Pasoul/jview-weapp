@@ -8,6 +8,7 @@
               autoUpload="{{autoUpload}}"
               chooseImage="{{chooseImage}}"
               chooseVideo="{{chooseVideo}}"
+              videoOption="{{videoOption}}"
               bind:file-add="fileAdd"
               bind:file-click="fileClick"
               bind:file-success="fileSuccess" 

@@ -20,7 +20,12 @@ Page({
     simultaneousUploads2: 1,
     autoUpload2: true,
     previewImage: "",
-    hideUploadBtn: false
+    hideUploadBtn: false,
+    videoOption: {
+      sourceType: ['album', 'camera'],
+      compressed: true,
+      camera: 'back'
+    }
   },
   fileAdd(e) {
     const errMsg = e.detail.errMsg || "";
@@ -41,6 +46,7 @@ Page({
         icon: 'none'
       });
     } else if (errMsg === "chooseVideo:ok") {
+      console.log(e);
       // const maxSize = 3 * 1024 * 1024; // 1M
       // if (e.detail.size > maxSize) {
       //   e.detail.ignore = true;
@@ -52,7 +58,6 @@ Page({
     }
   },
   fileClick(e) {
-    console.log(e);
     const { type, size } = e.detail;
     const title = type === 'image' ? '图片' : '视频';
     const calcSize = (size / 1000).toFixed(2);
@@ -64,7 +69,7 @@ Page({
     });
   },
   fileSuccess(file) {
-    // console.log(file);
+    console.log(file);
   },
   fileError(file) {},
   fileRemoved(file) {
