@@ -41,14 +41,14 @@ Page({
         icon: 'none'
       });
     } else if (errMsg === "chooseVideo:ok") {
-      const maxSize = 3 * 1024 * 1024; // 1M
-      if (e.detail.size > maxSize) {
-        e.detail.ignore = true;
-        wx.showToast({
-          title: '选取视频大于3M',
-          icon: 'none'
-        });
-      }
+      // const maxSize = 3 * 1024 * 1024; // 1M
+      // if (e.detail.size > maxSize) {
+      //   e.detail.ignore = true;
+      //   wx.showToast({
+      //     title: '选取视频大于3M',
+      //     icon: 'none'
+      //   });
+      // }
     }
   },
   fileClick(e) {
@@ -72,8 +72,9 @@ Page({
   },
   removeFile() {
     const component = this.selectComponent(`#vanUpload1`);
-    const files = component.data.files;
-    component.removeFile(null, files.length - 1);
+    const files = component.data.files.filter(file => file.status !== 'remove');
+    const lastFile = files[files.length - 1];
+    component.removeFile(null, lastFile.id);
   },
   start() {
     this.selectComponent(`#vanUpload1`).start();

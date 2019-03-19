@@ -10,9 +10,20 @@ import {
   STATUS_ERROR, 
   STATUS_SUCCESS, 
   STATUS_UPLOADING,
+  STATUS_REMOVE,
   TYPE_IMAGE,
   TYPE_VIDEO
 } from './utils/constant';
+
+function generateUUID() {
+  var d = new Date().getTime();
+  var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = (d + Math.random() * 16) % 16 | 0;
+    d = Math.floor(d / 16);
+    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+  });
+  return uuid;
+}
 
 VantComponent({
   props: {
@@ -90,20 +101,25 @@ VantComponent({
     files: [],
     videoSrc: "",
   },
+  computed: {
+    renderFiles() {
+      return this.data.files.filter(file => file.status !== STATUS_REMOVE)
+    }
+  },
   methods: {
-    removeFile(e, index?:number) {
-      let fileIndex = e ? e.currentTarget.dataset.index : index;
-      if(index < 0) return;
-      const files = this.data.files;
-      const file = files[fileIndex];
+    removeFile(e, id) {
+      let fileId = e ? e.currentTarget.dataset.id : id;
+      if(!fileId) return;
+      const index = this.data.files.findIndex(file => file.id === fileId);
+      const file = this.data.files[index];
       this.$emit(EVENT_REMOVED, file);
       file.task && file.task.abort();
-      files.splice(fileIndex, 1);
+      // 本质是设置index对应的file的status
       this.set({
-        files
+        ["files["+index+"].status"]: STATUS_REMOVE
       });
       // files数组改变，需要重新调用upload计算总上传文件数
-      this.upload();
+      // this.upload();
     },
     processFile(file, type:string){
       file['status'] = STATUS_READY;
@@ -111,6 +127,7 @@ VantComponent({
       file['statusCls'] = '';
       file['resultUrl'] = '';
       file['type'] = type;
+      file['id'] = generateUUID();
       if (type === TYPE_IMAGE) {
         file['previewPath'] = file['uploadPath'] =  file.path;
       } else if (type === TYPE_VIDEO) {
@@ -160,7 +177,8 @@ VantComponent({
                 self.upload(retry);
               })
               
-            }).catch(err => {
+            }).catch(({tempFile}) => {
+              tempFile.status !== STATUS_REMOVE && 
               self.set({
                 ["files["+i+"].statusCls"]: STATUS_ERROR,
                 ["files["+i+"].status"]: STATUS_ERROR

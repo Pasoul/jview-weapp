@@ -13,6 +13,7 @@ export const STATUS_READY = 'ready';
 export const STATUS_UPLOADING = 'uploading';
 export const STATUS_ERROR = 'error';
 export const STATUS_SUCCESS = 'success';
+export const STATUS_REMOVE = 'remove';
 
 /**
  * file type

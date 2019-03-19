@@ -2,7 +2,18 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 import { VantComponent } from "../../common/component";
 import { uploadFile } from './utils/uploadAli';
-import { EVENT_ADDED, EVENT_SUCCESS, EVENT_ERROR, EVENT_REMOVED, EVENT_CLICK, STATUS_READY, STATUS_ERROR, STATUS_SUCCESS, STATUS_UPLOADING, TYPE_IMAGE, TYPE_VIDEO } from './utils/constant';
+import { EVENT_ADDED, EVENT_SUCCESS, EVENT_ERROR, EVENT_REMOVED, EVENT_CLICK, STATUS_READY, STATUS_ERROR, STATUS_SUCCESS, STATUS_UPLOADING, STATUS_REMOVE, TYPE_IMAGE, TYPE_VIDEO } from './utils/constant';
+
+function generateUUID() {
+  var d = new Date().getTime();
+  var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = (d + Math.random() * 16) % 16 | 0;
+    d = Math.floor(d / 16);
+    return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
+  });
+  return uuid;
+}
+
 VantComponent({
   props: {
     // 使用上传按钮默认样式
@@ -79,20 +90,28 @@ VantComponent({
     files: [],
     videoSrc: ""
   },
+  computed: {
+    renderFiles: function renderFiles() {
+      return this.data.files.filter(function (file) {
+        return file.status !== STATUS_REMOVE;
+      });
+    }
+  },
   methods: {
-    removeFile: function removeFile(e, index) {
-      var fileIndex = e ? e.currentTarget.dataset.index : index;
-      if (index < 0) return;
-      var files = this.data.files;
-      var file = files[fileIndex];
+    removeFile: function removeFile(e, id) {
+      var fileId = e ? e.currentTarget.dataset.id : id;
+      if (!fileId) return;
+      var index = this.data.files.findIndex(function (file) {
+        return file.id === fileId;
+      });
+      var file = this.data.files[index];
       this.$emit(EVENT_REMOVED, file);
-      file.task && file.task.abort();
-      files.splice(fileIndex, 1);
-      this.set({
-        files: files
-      }); // files数组改变，需要重新调用upload计算总上传文件数
+      file.task && file.task.abort(); // 本质是设置index对应的file的status
 
-      this.upload();
+      this.set({
+        ["files[" + index + "].status"]: STATUS_REMOVE
+      }); // files数组改变，需要重新调用upload计算总上传文件数
+      // this.upload();
     },
     processFile: function processFile(file, type) {
       file['status'] = STATUS_READY;
@@ -100,6 +119,7 @@ VantComponent({
       file['statusCls'] = '';
       file['resultUrl'] = '';
       file['type'] = type;
+      file['id'] = generateUUID();
 
       if (type === TYPE_IMAGE) {
         file['previewPath'] = file['uploadPath'] = file.path;
@@ -158,8 +178,9 @@ VantComponent({
                 self.$emit(EVENT_SUCCESS, file);
                 self.upload(retry);
               });
-            }).catch(function (err) {
-              self.set({
+            }).catch(function (_ref) {
+              var tempFile = _ref.tempFile;
+              tempFile.status !== STATUS_REMOVE && self.set({
                 ["files[" + i + "].statusCls"]: STATUS_ERROR,
                 ["files[" + i + "].status"]: STATUS_ERROR
               }).then(function () {

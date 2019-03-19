@@ -59,11 +59,15 @@ function uploadHandle(tempFile, res, aliyunServerURL, callback, resolve, reject)
       if (res.statusCode === 200) {
         resolve(aliyunFileKey);
       } else {
-        reject(res);
+        reject({
+          tempFile: tempFile
+        });
       }
     },
     fail: function fail(err) {
-      reject(err);
+      reject({
+        tempFile: tempFile
+      });
     }
   });
   tempFile.task = uploadTask;

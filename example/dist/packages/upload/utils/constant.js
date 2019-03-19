@@ -14,6 +14,7 @@ export var STATUS_READY = 'ready';
 export var STATUS_UPLOADING = 'uploading';
 export var STATUS_ERROR = 'error';
 export var STATUS_SUCCESS = 'success';
+export var STATUS_REMOVE = 'remove';
 /**
  * file type
  */
