@@ -7,31 +7,31 @@
     </slot>
   </view>
   <block class="van-upload_file" wx:if="{{useDefaultFile}}">
-    <view wx:for="{{files}}" 
+    <view wx:for="{{renderFiles}}" 
           bindtap="fileClick" 
           data-index="{{index}}" 
-          wx:key="index" 
+          wx:key="item.id" 
           class="van-upload_file--def">
-      <image src="{{item.previewPath}}" mode="aspectFill" class="van-upload_file--preview" />
-      <view class="van-upload_file--remove" catchtap="removeFile" data-index="{{index}}"></view>
-      <view class="van-upload_file--state">
-        <view class="van-upload_file--state--icon" wx:if="{{item.statusCls}}">
-          <van-icon
-              name="success"
-              wx:if="{{ item.statusCls === 'success' && item.type === 'image' }}"
-              custom-class="van-icon_success"
-              size="20px"
-            />
-          <view class="van-icon_play" wx:elif="{{item.statusCls === 'success' && item.type === 'video'}}"></view>
-          <van-icon
-              name="fail"
-              wx:elif="{{ item.statusCls === 'error' }}"
-              custom-class="van-icon_fail"
-              size="20px"
-            />
-        </view>
-        <view wx:elif="{{!item.statusCls}}" class="van-upload_file--state--progress">{{item.fileProgress}}</view>
-      </view>
+           <image src="{{item.previewPath}}" mode="aspectFill" class="van-upload_file--preview" />
+            <view class="van-upload_file--remove" catchtap="removeFile" data-id="{{item.id}}"></view>
+            <view class="van-upload_file--state">
+              <view class="van-upload_file--state--icon" wx:if="{{item.statusCls}}">
+                <van-icon
+                    name="success"
+                    wx:if="{{ item.statusCls === 'success' && item.type === 'image' }}"
+                    custom-class="van-icon_success"
+                    size="20px"
+                  />
+                <view class="van-icon_play" wx:elif="{{item.statusCls === 'success' && item.type === 'video'}}"></view>
+                <van-icon
+                    name="fail"
+                    wx:elif="{{ item.statusCls === 'error' }}"
+                    custom-class="van-icon_fail"
+                    size="20px"
+                  />
+              </view>
+              <view wx:elif="{{!item.statusCls}}" class="van-upload_file--state--progress">{{item.fileProgress}}</view>
+            </view>
     </view>
   </block>
   <slot name="file" wx:else></slot>
