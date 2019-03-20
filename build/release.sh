@@ -23,7 +23,8 @@ then
 
   # publish
   git push origin master
-  git push origin refs/tags/v$VERSION
+  git tag v$VERSION -m 'release'
+  git push origin v$VERSION
   npm publish
 
   # sync dev
