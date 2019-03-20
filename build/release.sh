@@ -25,7 +25,7 @@ then
   git tag v$VERSION -m "[release] $VERSION"
   git push origin v$VERSION
   # commit
-  npm version $VERSION -m "[release] $VERSION"
+  npm version $VERSION -m "'[release] $VERSION'"
   npm publish
 
   # sync dev
