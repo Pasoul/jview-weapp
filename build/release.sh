@@ -18,13 +18,14 @@ then
     git commit -am "[build] $VERSION"
   fi
 
-  # commit
-  npm version $VERSION --message "[release] $VERSION aa"
+ 
 
   # publish
   git push origin master
   git tag v$VERSION -m "[release] $VERSION"
   git push origin v$VERSION
+  # commit
+  npm version $VERSION --message "[release] $VERSION"
   npm publish
 
   # sync dev
