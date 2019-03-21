@@ -2,7 +2,7 @@
 
 **注：** 本文中所有的原始文件对象统称为**原始文件**，而经过包装后的文件对象称为**文件对象**
 
-原始文件结构：
+**原始文件结构：**
 
 图片文件：
 
@@ -17,11 +17,59 @@
 | 参数 | 说明 | 类型 |
 |-----------|-----------|-----------|
 | errMsg | `wx.chooseVideo`API调用结果信息 | `String` |
-| duration | 点击是否预览图片 | `Number` |
+| duration | 视频总时间 | `Number` |
 | tempFilePath | 选定视频的临时文件路径 | `String` |
 | size | 选定视频的数据量大小 | `Number` |
 | height | 返回选定视频的高度 | `Number` |
 | width | 返回选定视频的宽度 | `Number` |
+
+**文件对象结构：**
+
+图片文件：
+
+| 参数 | 说明 | 类型 |
+|-----------|-----------|-----------|
+| fileProgress | 上传进度百分比 | `String`，eg：100% |
+| id | 上传图片的唯一id | `	string` |
+| path | 图片的本地临时文件路径 | `string` |
+| previewPath | 图片的预览路径 | `string` |
+| resultUrl | 上传成功之后的图片路径 | `string` |
+| size | 图片大小 | `number` |
+| status | 图片上传状态 | `string` |
+| statusCls | 图片展示结果状态，目前只有`success`和`error`两种 | `string` |
+| task | 图片当前上传任务 | `Object` |
+| type | 文件类型 | `string` |
+| uploadPath | 图片上传路径，和`path`参数相同 | `string` |
+
+视频文件：
+
+| 参数 | 说明 | 类型 |
+|-----------|-----------|-----------|
+| duration | 视频总时间 | `number` |
+| errMsg | `wx.chooseVideo`API调用结果信息 | `String` |
+| fileProgress | 上传进度百分比 | `String`，eg：100% |
+| height | 返回选定视频的高度 | `Number` |
+| id | 上传视频的唯一id | `	string` |
+| previewPath | 视频缩略图 | `string` |
+| resultUrl | 上传成功之后的视频路径 | `string` |
+| size | 视频大小 | `number` |
+| status | 视频上传状态 | `string` |
+| statusCls | 视频展示结果状态，目前只有`success`和`error`两种 | `string` |
+| task | 视频当前上传任务 | `Object` |
+| tempFilePath | 选定视频的临时文件路径 | `String` |
+| type | 文件类型 | `string` |
+| uploadPath | 视频上传路径，和`tempFilePath`参数相同 | `string` |
+| width | 返回选定视频的宽度 | `Number` |
+
+文件上传状态：
+
+| 参数 | 说明 |
+|-----------|-----------|
+| ready | 准备上传 |
+| uploading | 上传中 |
+| error | 上传失败 |
+| success | 上传成功 |
+| remove | 文件被移除 |
 
 ### 使用指南
 
@@ -91,6 +139,7 @@ Page({
 
 | 参数 | 说明 | 类型 | 默认值 |
 |-----------|-----------|-----------|-------------|
+| defaults | 默认展示的文件列表 | `Array.<Object>` | 见子配置项 |
 | action | 上传行为配置项 | `Object` | 见子配置项 |
 | preview | 点击是否预览图片 | `Boolean` | `true` |
 | play | 点击是否播放视频 | `Boolean` | `true` |
@@ -98,6 +147,17 @@ Page({
 | autoUpload | 是否自动上传 | `Boolean` | `true` |
 | chooseImage | 是否支持选择图片 | `Boolean` | `true` |
 | chooseVideo | 是否支持选择视频 | `Boolean` | `true` |
+
+### defaults子配置项
+
+| 参数 | 说明 | 类型 |
+|-----------|-----------|-----------|
+| id | 文件唯一id | `String` |
+| previewPath | 文件预览路径，默认情况下和`resultPath`相等 | `String` |
+| resultPath | 文件服务器地址 | `String` |
+| status | 文件上传状态，一般设置为`success` | `String` |
+| statusCls | 文件上传成功展示icon，一般设置为`success` | `String` |
+| type | 文件类型，`image` or `video` | `String` |
 
 ### action子配置项
 

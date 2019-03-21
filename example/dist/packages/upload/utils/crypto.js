@@ -1,4 +1,9 @@
-var Crypto = {};
+var Crypto = {
+  util: null,
+  mode: null,
+  HMAC: null,
+  SHA1: null
+};
 
 (function () {
   var base64map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"; // Crypto utilities

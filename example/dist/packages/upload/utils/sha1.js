@@ -8,15 +8,16 @@ import { Crypto } from './crypto';
 
 (function () {
   // Shortcut
-  var util = Crypto.util; // Public API
+  var util = Crypto.util;
+  var SHA1; // Public API
 
-  var SHA1 = Crypto.SHA1 = function (message, options) {
-    var digestbytes = util.wordsToBytes(SHA1._sha1(message));
+  SHA1 = Crypto.SHA1 = function (message, options) {
+    var digestbytes = util.wordsToBytes(SHA1["_sha1"](message));
     return options && options.asBytes ? digestbytes : options && options.asString ? util.bytesToString(digestbytes) : util.bytesToHex(digestbytes);
   }; // The core
 
 
-  SHA1._sha1 = function (message) {
+  SHA1["_sha1"] = function (message) {
     var m = util.stringToWords(message),
         l = message.length * 8,
         w = [],
@@ -60,7 +61,7 @@ import { Crypto } from './crypto';
   }; // Package private blocksize
 
 
-  SHA1._blocksize = 16;
+  SHA1["_blocksize"] = 16;
 })();
 
 export default Crypto;

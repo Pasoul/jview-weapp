@@ -1,4 +1,16 @@
-const Crypto = {};
+interface ICrypto {
+  util:any
+  mode:any
+  HMAC:any
+  SHA1:any
+}
+
+const Crypto:ICrypto = {
+  util: null,
+  mode: null,
+  HMAC: null,
+  SHA1: null
+};
 
 (function() {
   var base64map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";

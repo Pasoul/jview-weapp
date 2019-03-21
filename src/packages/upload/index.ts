@@ -26,6 +26,10 @@ function generateUUID() {
 }
 VantComponent({
   props: {
+    defaults: {
+      type: Array,
+      value: []
+    },
     // 使用上传按钮默认样式
     useDefaultBtn: {
       type: Boolean,
@@ -317,7 +321,7 @@ VantComponent({
     previewImage(file) {
       let imageLists = this.data.files.reduce((arr, item) => {
         if (item.type === TYPE_IMAGE && item.status === STATUS_SUCCESS) {
-          arr.push(item.resultUrl)
+          arr.push(item.previewPath)
         }
         return arr;
       }, []); 
@@ -361,6 +365,13 @@ VantComponent({
   watch: {
     "autoUpload": function(newVal) {
       this.paused = !newVal;
+    },
+    "defaults": function(newVal) {
+      if (newVal.length) {
+        this.set({
+          files: newVal
+        })
+      }
     }
   }
 })

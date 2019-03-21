@@ -2,6 +2,21 @@ import Page from "../../common/page";
 
 Page({
   data: {
+    defaults: [{
+      id: "xxx",
+      previewPath: "https://images2.bestjlb.com/v2jlbossb81242458a9b86c0cb60aaea16a8667215514127979246691.jpeg",
+      resultPath: "https://images2.bestjlb.com/v2jlbossb81242458a9b86c0cb60aaea16a8667215514127979246691.jpeg",
+      status: "success",
+      statusCls: 'success',
+      type: 'image'
+    }, {
+      id: "xxx",
+      previewPath: "https://images2.bestjlb.com/v2jlbossce92dfff00fd44eef3d85bcd84c0aaf915514280481079201.mp4.jpeg?x-oss-process=image/format,jpg/resize,w_343/auto-orient,1",
+      resultUrl: "https://images2.bestjlb.com/v2jlbossce92dfff00fd44eef3d85bcd84c0aaf915514280481079201.mp4",
+      status: "success",
+      statusCls: 'success',
+      type: 'video'
+    }],
     action: {
       aliyunServerURL: 'https://jlbapp.oss-cn-hangzhou.aliyuncs.com',
       aliyunTokenURL: 'https://test-weapp.zhixuezhen.com/jlb-weapp/upload/token/get.shtml',

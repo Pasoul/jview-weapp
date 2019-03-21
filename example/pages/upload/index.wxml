@@ -1,6 +1,7 @@
 <view class="van-upload">
   <view>默认使用:</view>
   <van-upload id="vanUpload1" 
+              defaults="{{defaults}}"
               action="{{action}}" 
               preview="{{preview}}"
               play="{{play}}"
