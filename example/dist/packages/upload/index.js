@@ -148,6 +148,13 @@ VantComponent({
         var status = file.status; // _retryId防止错误文件重复上传
 
         if (status === STATUS_READY || retry && status === STATUS_ERROR && file._retryId !== _this.retryId) {
+          // 重传的视频移除icon,显示上传进度
+          if (status === STATUS_ERROR) {
+            _this.set({
+              ["files[" + i + "].statusCls"]: ''
+            });
+          }
+
           (function (i) {
             uploadFile({
               tempFile: file,
