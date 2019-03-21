@@ -23,12 +23,11 @@ then
 
   # publish
   git push origin master
-  git tag v$VERSION -m "[release] $VERSION"
-  git push origin v$VERSION
+  git push origin refs/tags/v$VERSION
   npm publish
 
   # sync dev
-  # git checkout dev
-  # git rebase master
-  # git push origin dev
+  git checkout dev
+  git rebase master
+  git push origin dev
 fi
