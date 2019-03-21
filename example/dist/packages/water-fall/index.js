@@ -94,13 +94,17 @@ VantComponent({
       });
     },
     fullscreenchange: function fullscreenchange(e) {
-      if (!e.target.fullScreen) {
-        // 如果退出全屏，则关闭视频
-        this.videoContext.stop();
-        this.set({
-          videoSrc: ''
-        });
-      }
+      this.playVideoFlag = !this.playVideoFlag;
+
+      if (!this.playVideoFlag) {
+        return;
+      } // 如果退出全屏，则关闭视频
+
+
+      this.videoContext.stop();
+      this.set({
+        videoSrc: ''
+      });
     },
     playVideo: function playVideo(item) {
       var _this2 = this;
@@ -114,15 +118,17 @@ VantComponent({
         videoSrc: item.videoSrc
       }).then(function () {
         if (!_this2.videoContext) {
-          _this2.videoContext = wx.createVideoContext("van-water-fall_video");
-        } // 组件内的video上下文需要绑定this
-
-
-        _this2.videoContext = wx.createVideoContext("van-water-fall_video", _this2); // 全屏
+          // 组件内的video上下文需要绑定this
+          _this2.videoContext = wx.createVideoContext("van-water-fall_video", _this2);
+        }
 
         _this2.videoContext.play();
 
-        _this2.videoContext.requestFullScreen();
+        _this2.videoContext.requestFullScreen({
+          direction: 0
+        });
+
+        _this2.playVideoFlag = true;
       });
     },
     clickImg: function clickImg(e) {

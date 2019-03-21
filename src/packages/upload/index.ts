@@ -24,7 +24,6 @@ function generateUUID() {
   });
   return uuid;
 }
-
 VantComponent({
   props: {
     // 使用上传按钮默认样式
@@ -287,13 +286,15 @@ VantComponent({
       }
     },
     fullscreenchange(e) {
-      if (!e.target.fullScreen) {
-        // 如果退出全屏，则关闭视频
-        this.videoContext.stop();
-        this.set({
-          videoSrc: ''
-        })
+      this.playVideoFlag = !this.playVideoFlag;
+      if (!this.playVideoFlag) {
+        return;
       }
+      // 如果退出全屏，则关闭视频
+      this.videoContext.stop();
+      this.set({
+        videoSrc: ''
+      })
     },
     playVideo(file) {
       if (!file.resultUrl) {
@@ -303,14 +304,14 @@ VantComponent({
       this.set({
         videoSrc: file.resultUrl
       }).then(() => {
-        if (!this.videoContext) {
-          this.videoContext = wx.createVideoContext("van-water-fall_video");
-        }
         // 组件内的video上下文需要绑定this
-        this.videoContext = wx.createVideoContext("van-water-fall_video", this);
+        if (!this.videoContext) {
+          this.videoContext = wx.createVideoContext("van-upload-preview_video", this);
+        }
         // 全屏
         this.videoContext.play();
-        this.videoContext.requestFullScreen();
+        this.videoContext.requestFullScreen({direction: 0});
+        this.playVideoFlag = true;
       })
     },
     previewImage(file) {

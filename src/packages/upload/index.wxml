@@ -35,5 +35,9 @@
     </view>
   </block>
   <slot name="file" wx:else></slot>
-  <video id="van-water-fall_video" style="width: 1rpx;height:1rpx;opacity:0;display:none;" src="{{videoSrc}}"></video>
+  <video  id="van-upload-preview_video" 
+          wx:if="{{videoSrc}}" 
+          bindfullscreenchange="fullscreenchange" 
+          style="width:1px;height:1px;"
+          src="{{videoSrc}}"></video>
 </view>
