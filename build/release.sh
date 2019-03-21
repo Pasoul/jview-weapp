@@ -27,7 +27,7 @@ then
   npm publish
 
   # sync dev
-  git checkout dev
-  git rebase master
-  git push origin dev
+  # git checkout dev
+  # git rebase master
+  # git push origin dev
 fi
