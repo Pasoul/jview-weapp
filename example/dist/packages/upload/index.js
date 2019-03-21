@@ -114,8 +114,7 @@ VantComponent({
 
       this.set({
         ["files[" + index + "].status"]: STATUS_REMOVE
-      }); // files数组改变，需要重新调用upload计算总上传文件数
-      // this.upload();
+      });
     },
     processFile: function processFile(file, type) {
       file['status'] = STATUS_READY;
@@ -144,15 +143,14 @@ VantComponent({
       if (this.paused || !aliyunTokenURL || !aliyunServerURL) return;
       var len = this.data.files.length;
       var uploadingCount = 0,
-          i = 0,
-          self = this;
+          i = 0;
 
       var _loop = function _loop() {
         var file = _this.data.files[i];
         var status = file.status; // _retryId防止错误文件重复上传
 
         if (status === STATUS_READY || retry && status === STATUS_ERROR && file._retryId !== _this.retryId) {
-          // 重传的视频移除icon,显示上传进度
+          // 重传的文件移除icon,显示上传进度
           if (status === STATUS_ERROR) {
             _this.set({
               ["files[" + i + "].statusCls"]: ''
@@ -166,7 +164,7 @@ VantComponent({
               aliyunServerURL: aliyunServerURL,
               callback: function callback(uploadTask) {
                 uploadTask.onProgressUpdate(function (res) {
-                  self.set({
+                  _this.set({
                     ["files[" + i + "].fileProgress"]: res.progress + '%'
                   });
                 });
@@ -179,25 +177,27 @@ VantComponent({
                 previewPath = ossDomain ? ossDomain + aliyunFileKey + '?x-oss-process=video/snapshot,t_1000,w_750' : aliyunFileKey;
               }
 
-              self.set({
+              _this.set({
                 ["files[" + i + "].statusCls"]: STATUS_SUCCESS,
                 ["files[" + i + "].status"]: STATUS_SUCCESS,
                 ["files[" + i + "].resultUrl"]: ossDomain ? ossDomain + aliyunFileKey : aliyunFileKey,
                 ["files[" + i + "].previewPath"]: file.type === TYPE_VIDEO ? previewPath : file.previewPath
               }).then(function () {
                 // 派发文件上传成功事件
-                self.$emit(EVENT_SUCCESS, file);
-                self.upload(retry);
+                _this.$emit(EVENT_SUCCESS, file);
+
+                _this.upload(retry);
               });
             }).catch(function (_ref) {
               var tempFile = _ref.tempFile;
-              tempFile.status !== STATUS_REMOVE && self.set({
+              tempFile.status !== STATUS_REMOVE && _this.set({
                 ["files[" + i + "].statusCls"]: STATUS_ERROR,
                 ["files[" + i + "].status"]: STATUS_ERROR
               }).then(function () {
                 // 派发文件上传失败事件
-                self.$emit(EVENT_ERROR, file);
-                self.upload(retry);
+                _this.$emit(EVENT_ERROR, file);
+
+                _this.upload(retry);
               });
             });
           })(i);

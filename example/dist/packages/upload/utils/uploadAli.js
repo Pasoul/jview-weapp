@@ -29,7 +29,7 @@ export function uploadFile(_ref) {
   tempFile.status = STATUS_UPLOADING;
   return new Promise(function (resolve, reject) {
     getAliToken(aliyunTokenURL).then(function (res) {
-      uploadHandle(tempFile, res.data.rs, aliyunServerURL, callback, resolve, reject);
+      uploadHandle(tempFile, res['data']['rs'], aliyunServerURL, callback, resolve, reject);
     }).catch(function (err) {
       reject(err);
     });

@@ -15,6 +15,8 @@ import {
   TYPE_VIDEO
 } from './utils/constant';
 
+type FileType = 'image' | 'video'
+
 function generateUUID() {
   var d = new Date().getTime();
   var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -24,6 +26,7 @@ function generateUUID() {
   });
   return uuid;
 }
+
 VantComponent({
   props: {
     defaults: {
@@ -100,15 +103,18 @@ VantComponent({
       value: true
     }
   },
+
   data: {
     files: [],
     videoSrc: "",
   },
+
   computed: {
     renderFiles() {
       return this.data.files.filter(file => file.status !== STATUS_REMOVE)
     }
   },
+
   methods: {
     removeFile(e, id) {
       let fileId = e ? e.currentTarget.dataset.id : id;
@@ -121,10 +127,9 @@ VantComponent({
       this.set({
         ["files["+index+"].status"]: STATUS_REMOVE
       });
-      // files数组改变，需要重新调用upload计算总上传文件数
-      // this.upload();
     },
-    processFile(file, type:string){
+
+    processFile(file, type:FileType){
       file['status'] = STATUS_READY;
       file['fileProgress'] = '0%';
       file['statusCls'] = '';
@@ -139,35 +144,41 @@ VantComponent({
       }
       return file
     },
+
     upload(retry?:boolean) {
       const { aliyunTokenURL, aliyunServerURL, ossDomain } = this.data.action;
       if ( this.paused || !aliyunTokenURL || !aliyunServerURL ) return;
       const len = this.data.files.length;
-      let uploadingCount = 0, i = 0, self = this;
+      let uploadingCount = 0, i = 0;
+
       while (i < len && uploadingCount < this.data.simultaneousUploads) {
         const file = this.data.files[i];
         const status = file.status;
         // _retryId防止错误文件重复上传
-        if (status === STATUS_READY || (retry && status === STATUS_ERROR && file._retryId !== this.retryId)) {
-          // 重传的视频移除icon,显示上传进度
+        if (
+            status === STATUS_READY 
+            || (retry && status === STATUS_ERROR && file._retryId !== this.retryId)
+          ) {
+          // 重传的文件移除icon,显示上传进度
           if (status === STATUS_ERROR) {
             this.set({
               ["files["+i+"].statusCls"]: ''
             })
           }
-          (function(i) {
+
+          ((i) => {
             uploadFile({
               tempFile: file, 
               aliyunTokenURL: aliyunTokenURL, 
               aliyunServerURL: aliyunServerURL,
               callback: (uploadTask) => {
                 uploadTask.onProgressUpdate(res => {
-                  self.set({
+                  this.set({
                     ["files["+i+"].fileProgress"]: res.progress + '%'
                   })
                 })
               }
-            }).then((aliyunFileKey) => {
+            }).then((aliyunFileKey:string) => {
               // TODO：thumbTempFilePath真机bug：https://developers.weixin.qq.com/community/search?query=thumbTempFilePath&page=1，暂时用oss处理
               let previewPath;
               if (file.type === TYPE_VIDEO) {
@@ -175,29 +186,30 @@ VantComponent({
                               ? ossDomain + aliyunFileKey + '?x-oss-process=video/snapshot,t_1000,w_750'
                               : aliyunFileKey;
               }
-              self.set({
+              this.set({
                 ["files["+i+"].statusCls"]: STATUS_SUCCESS,
                 ["files["+i+"].status"]: STATUS_SUCCESS,
                 ["files["+i+"].resultUrl"]: ossDomain ? ossDomain + aliyunFileKey : aliyunFileKey,
                 ["files["+i+"].previewPath"]: file.type === TYPE_VIDEO ? previewPath : file.previewPath
               }).then(() => {
                 // 派发文件上传成功事件
-                self.$emit(EVENT_SUCCESS, file);
-                self.upload(retry);
+                this.$emit(EVENT_SUCCESS, file);
+                this.upload(retry);
               })
               
             }).catch(({tempFile}) => {
               tempFile.status !== STATUS_REMOVE && 
-              self.set({
+              this.set({
                 ["files["+i+"].statusCls"]: STATUS_ERROR,
                 ["files["+i+"].status"]: STATUS_ERROR
               }).then(() => {
                 // 派发文件上传失败事件
-                self.$emit(EVENT_ERROR, file);
-                self.upload(retry);
+                this.$emit(EVENT_ERROR, file);
+                this.upload(retry);
               })
             })
           })(i)
+          
           if (status === STATUS_ERROR) {
             file._retryId = this.retryId;
           }
@@ -209,6 +221,7 @@ VantComponent({
         i++;
       }
     },
+
     chooseImage() {
       let {
             count = 9, 
@@ -241,6 +254,7 @@ VantComponent({
         }
       });
     },
+
     chooseVideo() {
       let {
         sourceType = ['album', 'camera'],
@@ -267,6 +281,7 @@ VantComponent({
         }
       })
     },
+
     /**
      * 如果图片和视频都能选择，需要提示用户选择图片还是选择视频
      */
@@ -289,6 +304,7 @@ VantComponent({
         this.chooseVideo();
       }
     },
+
     fullscreenchange(e) {
       this.playVideoFlag = !this.playVideoFlag;
       if (!this.playVideoFlag) {
@@ -300,6 +316,7 @@ VantComponent({
         videoSrc: ''
       })
     },
+
     playVideo(file) {
       if (!file.resultUrl) {
         console.error(`请检查此视频是否有合法字段resultUrl，:${JSON.stringify(file)}`)
@@ -318,6 +335,7 @@ VantComponent({
         this.playVideoFlag = true;
       })
     },
+
     previewImage(file) {
       let imageLists = this.data.files.reduce((arr, item) => {
         if (item.type === TYPE_IMAGE && item.status === STATUS_SUCCESS) {
@@ -331,6 +349,7 @@ VantComponent({
         current: imageLists[currentIndex]
       })
     },
+
     fileClick(e) {
       let index = e.currentTarget.dataset.index;
       const files = this.data.files;
@@ -343,10 +362,12 @@ VantComponent({
         this.playVideo(file)
       }
     },
+
     start() {
       this.paused = false
       this.upload()
     },
+
     abort() {
       this.paused = true;
       this.data.files.forEach(file => {
@@ -356,6 +377,7 @@ VantComponent({
         }
       })
     },
+
     retry() {
       this.paused = false;
       this.retryId = Date.now();
@@ -366,6 +388,7 @@ VantComponent({
     "autoUpload": function(newVal) {
       this.paused = !newVal;
     },
+
     "defaults": function(newVal) {
       if (newVal.length) {
         this.set({

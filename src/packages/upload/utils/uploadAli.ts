@@ -26,7 +26,7 @@ export function uploadFile({tempFile, aliyunTokenURL, aliyunServerURL, callback}
   return new Promise((resolve, reject) => {
       getAliToken(aliyunTokenURL)
       .then(res => {
-        uploadHandle(tempFile, res.data.rs, aliyunServerURL, callback, resolve, reject);
+        uploadHandle(tempFile, res['data']['rs'], aliyunServerURL, callback, resolve, reject);
       })
       .catch(err => {
         reject(err)

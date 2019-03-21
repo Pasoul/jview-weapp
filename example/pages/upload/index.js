@@ -10,7 +10,7 @@ Page({
       statusCls: 'success',
       type: 'image'
     }, {
-      id: "xxx",
+      id: "yyy",
       previewPath: "https://images2.bestjlb.com/v2jlbossce92dfff00fd44eef3d85bcd84c0aaf915514280481079201.mp4.jpeg?x-oss-process=image/format,jpg/resize,w_343/auto-orient,1",
       resultUrl: "https://images2.bestjlb.com/v2jlbossce92dfff00fd44eef3d85bcd84c0aaf915514280481079201.mp4",
       status: "success",
