@@ -153,7 +153,7 @@ Page({
 | 参数 | 说明 | 类型 |
 |-----------|-----------|-----------|
 | id | 文件唯一id | `String` |
-| previewPath | 文件预览路径，默认情况下和`resultPath`相等 | `String` |
+| previewPath | 文件预览路径，若是图片该字段和`resultPath`相等，若是视频，该字段是视频缩略图 | `String` |
 | resultPath | 文件服务器地址 | `String` |
 | status | 文件上传状态，一般设置为`success` | `String` |
 | statusCls | 文件上传成功展示icon，一般设置为`success` | `String` |
