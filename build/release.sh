@@ -19,7 +19,7 @@ then
   fi
 
   # commit
-  npm version $VERSION
+  npm version $VERSION --message "[release] $VERSION"
 
   # publish
   git push origin master
