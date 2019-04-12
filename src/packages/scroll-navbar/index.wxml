@@ -1,0 +1,1 @@
+<view class="scroll-nav-bar {{'scroll-nav-bar_'+direction}}"></view>
