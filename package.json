@@ -1,9 +1,9 @@
 {
   "name": "jview-weapp",
-  "version": "0.2.1",
+  "version": "0.2.0",
   "description": "jlb weapp ui-component",
   "repository": "git@github.com:Pasoul/jview-weapp.git",
-  "author": "pengyong <pengyong@zhixuezhen.com>",
+  "author": "py419569317",
   "license": "MIT",
   "miniprogram": "dist",
   "scripts": {
