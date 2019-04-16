@@ -1,6 +1,6 @@
 {
   "name": "jview-weapp",
-  "version": "0.2.0",
+  "version": "0.2.4",
   "description": "jlb weapp ui-component",
   "repository": "git@github.com:Pasoul/jview-weapp.git",
   "author": "pengyong <pengyong@zhixuezhen.com>",
@@ -8,7 +8,7 @@
   "miniprogram": "dist",
   "scripts": {
     "dev": "node build/dev.js",
-    "lint": "eslint ./packages --ext .js",
+    "lint": "eslint ./src --ext .js",
     "release": "sh build/release.sh",
     "build:lib": "yarn && rm -rf dist && rm -rf lib && NODE_ENV=production node build/compiler.js",
     "build:site": "rm -rf docs/dist && cross-env NODE_ENV=production webpack --config build/webpack.doc.prd.js && gh-pages -d docs/dist",
