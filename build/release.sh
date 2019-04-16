@@ -1,8 +1,7 @@
 # git checkout master
 # git merge dev
 
-#!/bin/bash
-
+#!/usr/bin/env sh
 set -e
 echo "Enter release version: "
 read VERSION
