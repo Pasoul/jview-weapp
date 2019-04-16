@@ -24,7 +24,7 @@ then
   # publish
   git push origin master
   git push origin refs/tags/v$VERSION
-  npm publish
+  npm publish --allow-same-version
 
   # sync dev
   # git checkout dev
