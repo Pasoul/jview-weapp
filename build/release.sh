@@ -19,12 +19,12 @@ then
   fi
 
   # commit
-  npm version $VERSION --message "[release] $VERSION"
+  npm version $VERSION --message "[release] $VERSION"  --allow-same-version
 
   # publish
   git push origin master
   git push origin refs/tags/v$VERSION
-  npm publish --allow-same-version
+  npm publish
 
   # sync dev
   # git checkout dev
