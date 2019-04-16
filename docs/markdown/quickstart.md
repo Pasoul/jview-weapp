@@ -27,12 +27,26 @@ git clone https://github.com/Pasoul/jview-weapp.git
 
 ### 使用组件
 
-以按钮组件为例，只需要在 json 文件中引入按钮对应的自定义组件即可
+以SlideView组件为例，只需要在 json 文件中引入按钮对应的自定义组件即可
+
+某些小程序框架会要求关闭`ES6转ES5`选项，可以引入`lib`目录内es5版本的组件
+
+es6
 
 ```json
 {
   "usingComponents": {
     "van-slide-view": "/path/to/jview-weapp/dist/slide-view/index"
+  }
+}
+```
+
+es5
+
+```json
+{
+  "usingComponents": {
+    "van-slide-view": "/path/to/jview-weapp/lib/slide-view/index"
   }
 }
 ```
