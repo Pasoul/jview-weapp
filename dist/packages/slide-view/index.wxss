@@ -1,1 +1,0 @@
-@import '../../common/index.wxss';.van-slide-view{overflow:hidden}.van-slide-view .van-slide__movable{display:-webkit-flex;display:flex;direction:row;overflow:hidden}

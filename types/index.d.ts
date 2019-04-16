@@ -1,8 +1,10 @@
-// 三斜线指令：诉编译器在编译过程中要引入的额外的文件
 /// <reference path="./weapp.d.ts" />
-import { ComponentInstance } from './instance';
 
-// 类型别名用来给一个类型起个新名字。
+interface ComponentInstance {
+  triggerEvent: never;
+  $emit(name: string, detail?: any): void;
+}
+
 type Mixins = any[];
 type ExternalClasses = string[];
 type LooseObject = {
@@ -22,7 +24,7 @@ type RecordToReturn<T> = {
   [P in keyof T]: T[P] extends (...args: any[]) => any ? ReturnType<T[P]> : T[P]
 };
 
-export type CombinedComponentInstance<
+type CombinedComponentInstance<
   Data,
   Props,
   Watch,
@@ -36,7 +38,7 @@ export type CombinedComponentInstance<
     data: Data & LooseObject & RecordToAny<Props> & RecordToReturn<Computed>;
   };
 
-export type VantComponentOptions<
+type VantComponentOptions<
   Data,
   Props,
   Watch,

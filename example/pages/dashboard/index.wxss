@@ -42,3 +42,40 @@
   background-color: #fff;
   padding: 17px 15px;
 }
+
+.van-cell {
+  position: relative;
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  color: #323233;
+  font-size: 14px;
+  line-height: 24px;
+  background-color: #fff;
+  padding: 10px 15px;
+}
+
+.van-cell:before {
+  content: " ";
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  left: 15px;
+  right: 0;
+  top: 0;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  border-bottom: 1px solid #ebedf0;
+}
+
+.van-cell:after {
+  content: ">";
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}

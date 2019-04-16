@@ -1,10 +1,10 @@
-@import '../../dist/common/index.wxss';
+@import "../../dist/common/index.wxss";
 
 .demo-block__title {
   margin: 0;
   font-weight: 400;
   font-size: 14px;
-  color: rgba(69,90,100,.6);
+  color: rgba(69, 90, 100, 0.6);
   padding: 20px 15px 15px;
 }
 

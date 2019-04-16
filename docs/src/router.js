@@ -1,9 +1,9 @@
-import docConfig from './doc.config';
+import docConfig from "./doc.config";
 
 const registerRoute = () => {
   const route = [
     {
-      path: '*',
+      path: "*",
       redirect: to => `/intro`
     }
   ];
@@ -23,18 +23,15 @@ const registerRoute = () => {
   function addRoute(page, isComponent) {
     let { path } = page;
     if (path) {
-      path = path.replace('/', '');
-      const component = () =>
-        page.md
-          ? import(`../markdown/${path}.md`)
-          : import(`../../src/packages/${path}/README.md`);
+      path = path.replace("/", "");
+      const component = () => (page.md ? import(`../markdown/${path}.md`) : import(`../../src/${path}/README.md`));
 
       if (!component) {
         return;
       }
 
       route.push({
-        name: '/' + path,
+        name: "/" + path,
         component,
         path: `/${path}`,
         meta: {

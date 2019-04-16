@@ -1,9 +1,5 @@
 import { basic } from './mixins/basic';
 import { observe } from './mixins/observer/index';
-import {
-  VantComponentOptions,
-  CombinedComponentInstance
-} from '../../types/index';
 
 /**
  * 给target对象赋值：例如：

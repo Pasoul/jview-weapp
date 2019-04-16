@@ -1,10 +1,5 @@
 {
-  "pages": [
-    "pages/dashboard/index",
-    "pages/slide-view/index",
-    "pages/water-fall/index",
-    "pages/upload/index"
-  ],
+  "pages": ["pages/dashboard/index", "pages/slide-view/index", "pages/water-fall/index", "pages/upload/index"],
   "window": {
     "navigationBarBackgroundColor": "#f8f8f8",
     "navigationBarTitleText": "Vant Weapp",
@@ -14,11 +9,8 @@
   },
   "usingComponents": {
     "demo-block": "../../components/demo-block/index",
-    "van-icon": "../../dist/packages/icon/index",
-    "van-cell": "../../dist/packages/cell/index",
-    "van-cell-group": "../../dist/packages/cell-group/index",
-    "van-slide-view": "../../dist/packages/slide-view/index",
-    "van-water-fall": "../../dist/packages/water-fall/index",
-    "van-upload": "../../dist/packages/upload/index"
+    "van-slide-view": "../../dist/slide-view/index",
+    "van-water-fall": "../../dist/water-fall/index",
+    "van-upload": "../../dist/upload/index"
   }
 }

@@ -4,19 +4,14 @@
     <view class="title-text">jview weapp</view>
   </view>
   <view class="desc">面向较复杂业务的UI组件库</view>
-
   <block wx:for="{{ list }}" wx:for-item="group" wx:key="group.title">
     <view class="mobile-nav">
       <view class="mobile-nav__title">{{ group.groupName }}</view>
-      <van-cell-group>
-        <van-cell
-          wx:for="{{ group.list }}"
-          wx:key="item.title"
-          is-link
-          url="/pages{{ item.path }}/index"
-          title="{{ item.title }}"
-        ></van-cell>
-      </van-cell-group>
+      <view class="custom-class van-cell-group">
+        <view class="van-cell" wx:for="{{ group.list }}" wx:key="item.title" bindtap="toDetail" data-url="{{item.path}}">
+          {{ item.title }}
+        </view>
+      </view>
     </view>
   </block>
 </view>
