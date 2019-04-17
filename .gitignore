@@ -1,3 +1,10 @@
 node_modules
 docs-private
 docs/dist
+changelog.generated.md
+.cache
+.DS_Store
+.idea
+.vscode
+.history
+example/dist
