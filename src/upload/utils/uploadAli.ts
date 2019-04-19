@@ -1,19 +1,10 @@
 import { Base64 } from "./base64";
 import { Crypto } from "./crypto";
-import { getAliToken } from "./ajax";
 import { STATUS_UPLOADING, TYPE_IMAGE, TYPE_VIDEO } from "./constant";
 import "./hmac";
 import "./sha1";
-// import { TempFileImage } from '../index'
 
-// interface uploadFile {
-//   tempFile: TempFileImage
-//   aliyunTokenURL: string
-//   aliyunServerURL: string
-//   callback(uploadTask:Weapp.UploadTask):void
-// }
-
-export function uploadFile({ tempFile, aliyunTokenURL, aliyunServerURL, callback }) {
+export function uploadFile({ tempFile, aliyunData, aliyunServerURL, callback }) {
   if (!tempFile || !tempFile.uploadPath) {
     wx.showModal({
       title: "图片错误",
@@ -24,13 +15,7 @@ export function uploadFile({ tempFile, aliyunTokenURL, aliyunServerURL, callback
   }
   tempFile.status = STATUS_UPLOADING;
   return new Promise((resolve, reject) => {
-    getAliToken(aliyunTokenURL)
-      .then(res => {
-        uploadHandle(tempFile, res["data"]["rs"], aliyunServerURL, callback, resolve, reject);
-      })
-      .catch(err => {
-        reject(err);
-      });
+    uploadHandle(tempFile, aliyunData, aliyunServerURL, callback, resolve, reject);
   });
 }
 

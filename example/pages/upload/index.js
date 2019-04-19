@@ -2,25 +2,29 @@ import Page from "../../common/page";
 
 Page({
   data: {
-    defaults: [{
-      id: "xxx",
-      previewPath: "https://images2.bestjlb.com/v2jlbossb81242458a9b86c0cb60aaea16a8667215514127979246691.jpeg",
-      resultPath: "https://images2.bestjlb.com/v2jlbossb81242458a9b86c0cb60aaea16a8667215514127979246691.jpeg",
-      status: "success",
-      statusCls: 'success',
-      type: 'image'
-    }, {
-      id: "yyy",
-      previewPath: "https://images2.bestjlb.com/v2jlbossce92dfff00fd44eef3d85bcd84c0aaf915514280481079201.mp4.jpeg?x-oss-process=image/format,jpg/resize,w_343/auto-orient,1",
-      resultUrl: "https://images2.bestjlb.com/v2jlbossce92dfff00fd44eef3d85bcd84c0aaf915514280481079201.mp4",
-      status: "success",
-      statusCls: 'success',
-      type: 'video'
-    }],
+    defaults: [
+      {
+        id: "xxx",
+        previewPath: "https://images2.bestjlb.com/v2jlbossb81242458a9b86c0cb60aaea16a8667215514127979246691.jpeg",
+        resultUrl: "https://images2.bestjlb.com/v2jlbossb81242458a9b86c0cb60aaea16a8667215514127979246691.jpeg",
+        status: "success",
+        statusCls: "success",
+        type: "image"
+      },
+      {
+        id: "yyy",
+        previewPath:
+          "https://images2.bestjlb.com/v2jlbossce92dfff00fd44eef3d85bcd84c0aaf915514280481079201.mp4.jpeg?x-oss-process=image/format,jpg/resize,w_343/auto-orient,1",
+        resultUrl: "https://images2.bestjlb.com/v2jlbossce92dfff00fd44eef3d85bcd84c0aaf915514280481079201.mp4",
+        status: "success",
+        statusCls: "success",
+        type: "video"
+      }
+    ],
     action: {
-      aliyunServerURL: 'https://jlbapp.oss-cn-hangzhou.aliyuncs.com',
-      aliyunTokenURL: 'https://test-weapp.zhixuezhen.com/jlb-weapp/upload/token/get.shtml',
-      ossDomain: 'https://images2.bestjlb.com/'
+      aliyunServerURL: "https://jlbapp.oss-cn-hangzhou.aliyuncs.com",
+      aliyunData: {},
+      ossDomain: "https://images2.bestjlb.com/"
     },
     preview: true,
     play: true,
@@ -37,10 +41,32 @@ Page({
     previewImage: "",
     hideUploadBtn: false,
     videoOption: {
-      sourceType: ['album', 'camera'],
+      sourceType: ["album", "camera"],
       compressed: true,
-      camera: 'back'
+      camera: "back"
     }
+  },
+  onLoad() {
+    this._getToken('https://test-weapp.zhixuezhen.com/jlb-weapp/upload/token/get.shtml').then(res => {
+      this.setData({
+        "action.aliyunData": res.rs
+      });
+    });
+  },
+  _getToken(url) {
+    return new Promise((resolve, reject) => {
+      wx.request({
+        url,
+        data: { tokenType: "Ali" },
+        method: 'POST',
+        success: function(res) {
+          resolve(res.data);
+        },
+        fail: function(err) {
+          reject(err);
+        }
+      });
+    });
   },
   fileAdd(e) {
     const errMsg = e.detail.errMsg || "";
@@ -56,10 +82,11 @@ Page({
           hasIgnore = true;
         }
       }
-      hasIgnore && wx.showToast({
-        title: '选取图片大于1M',
-        icon: 'none'
-      });
+      hasIgnore &&
+        wx.showToast({
+          title: "选取图片大于1M",
+          icon: "none"
+        });
     } else if (errMsg === "chooseVideo:ok") {
       console.log(e);
       // const maxSize = 3 * 1024 * 1024; // 1M
@@ -74,25 +101,27 @@ Page({
   },
   fileClick(e) {
     const { type, size } = e.detail;
-    const title = type === 'image' ? '图片' : '视频';
+    const title = type === "image" ? "图片" : "视频";
     const calcSize = (size / 1000).toFixed(2);
-    if (type === 'image' && this.data.preview) return;
-    if (type === 'video' && this.data.play) return;
+    if (type === "image" && this.data.preview) return;
+    if (type === "video" && this.data.play) return;
     wx.showToast({
-      icon: 'none',
+      icon: "none",
       title: `当前点击${title}大小${calcSize}kb`
     });
   },
   fileSuccess(file) {
     console.log(file);
   },
-  fileError(file) {},
+  fileError(file) {
+    console.log(file);
+  },
   fileRemoved(file) {
     console.log(file);
   },
   removeFile() {
     const component = this.selectComponent(`#vanUpload1`);
-    const files = component.data.files.filter(file => file.status !== 'remove');
+    const files = component.data.files.filter(file => file.status !== "remove");
     const lastFile = files[files.length - 1];
     component.removeFile(null, lastFile.id);
   },

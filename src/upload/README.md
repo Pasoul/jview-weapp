@@ -145,6 +145,7 @@ Page({
 | play | 点击是否播放视频 | `Boolean` | `true` |
 | simultaneousUploads | 并发上传数量 | `Number` | `1` |
 | autoUpload | 是否自动上传 | `Boolean` | `true` |
+| autoRetry | 上传失败是否自动重传（一次） | `Boolean` | `true` |
 | chooseImage | 是否支持选择图片 | `Boolean` | `true` |
 | chooseVideo | 是否支持选择视频 | `Boolean` | `true` |
 
@@ -153,8 +154,8 @@ Page({
 | 参数 | 说明 | 类型 |
 |-----------|-----------|-----------|
 | id | 文件唯一id | `String` |
-| previewPath | 文件预览路径，若是图片该字段和`resultPath`相等，若是视频，该字段是视频缩略图 | `String` |
-| resultPath | 文件服务器地址 | `String` |
+| previewPath | 文件预览路径，若是图片该字段和`resultUrl`相等，若是视频，该字段是视频缩略图 | `String` |
+| resultUrl | 文件服务器地址 | `String` |
 | status | 文件上传状态，一般设置为`success` | `String` |
 | statusCls | 文件上传成功展示icon，一般设置为`success` | `String` |
 | type | 文件类型，`image` or `video` | `String` |
