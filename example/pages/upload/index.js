@@ -22,9 +22,9 @@ Page({
       }
     ],
     action: {
-      aliyunServerURL: "https://jlbapp.oss-cn-hangzhou.aliyuncs.com",
-      aliyunData: {},
-      ossDomain: "https://images2.bestjlb.com/"
+      aliyunServerURL: 'https://jlbapp.oss-cn-hangzhou.aliyuncs.com',
+      aliyunTokenURL: 'https://test-weapp.zhixuezhen.com/jlb-weapp/upload/token/get.shtml',
+      ossDomain: 'https://images2.bestjlb.com/'
     },
     preview: true,
     play: true,
@@ -45,13 +45,6 @@ Page({
       compressed: true,
       camera: "back"
     }
-  },
-  onLoad() {
-    this._getToken('https://test-weapp.zhixuezhen.com/jlb-weapp/upload/token/get.shtml').then(res => {
-      this.setData({
-        "action.aliyunData": res.rs
-      });
-    });
   },
   _getToken(url) {
     return new Promise((resolve, reject) => {

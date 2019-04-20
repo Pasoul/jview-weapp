@@ -1,6 +1,5 @@
 import { VantComponent } from "../common/component";
 import { uploadFile } from "./utils/uploadAli";
-// import { getAliToken } from "./utils/ajax";
 import {
   EVENT_ADDED,
   EVENT_SUCCESS,
@@ -152,8 +151,8 @@ VantComponent({
     },
 
     upload(retry?: boolean) {
-      const { aliyunServerURL, ossDomain, aliyunData } = this.data.action;
-      if (this.paused || !aliyunData || !aliyunServerURL) return;
+      const { aliyunTokenURL, aliyunServerURL, ossDomain } = this.data.action;
+      if (this.paused || !aliyunTokenURL || !aliyunServerURL) return;
 
       const len = this.data.files.length;
       let uploadingCount = 0,
@@ -174,7 +173,7 @@ VantComponent({
           (i => {
             uploadFile({
               tempFile: file,
-              aliyunData: aliyunData,
+              aliyunTokenURL: aliyunTokenURL,
               aliyunServerURL: aliyunServerURL,
               callback: uploadTask => {
                 uploadTask.onProgressUpdate(res => {

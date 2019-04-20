@@ -1,10 +1,10 @@
 import { Base64 } from "./base64";
 import { Crypto } from "./crypto";
-import { STATUS_UPLOADING, TYPE_IMAGE, TYPE_VIDEO } from "./constant";
+import { getAliToken } from "./ajax";
+import { STATUS_UPLOADING } from "./constant";
 import "./hmac";
 import "./sha1";
-
-export function uploadFile({ tempFile, aliyunData, aliyunServerURL, callback }) {
+export function uploadFile({ tempFile, aliyunTokenURL, aliyunServerURL, callback }) {
   if (!tempFile || !tempFile.uploadPath) {
     wx.showModal({
       title: "图片错误",
@@ -15,7 +15,13 @@ export function uploadFile({ tempFile, aliyunData, aliyunServerURL, callback }) 
   }
   tempFile.status = STATUS_UPLOADING;
   return new Promise((resolve, reject) => {
-    uploadHandle(tempFile, aliyunData, aliyunServerURL, callback, resolve, reject);
+    getAliToken(aliyunTokenURL)
+      .then((res) => {
+        uploadHandle(tempFile, res, aliyunServerURL, callback, resolve, reject);
+      })
+      .catch(err => {
+        reject(err);
+      });
   });
 }
 
@@ -38,21 +44,23 @@ function uploadHandle(tempFile, res, aliyunServerURL, callback, resolve, reject)
       "x-oss-security-token": res.accessToken,
       success_action_status: "200"
     },
-    success: function(res) {
+    success: function (res) {
       if (res.statusCode === 200) {
         resolve(aliyunFileKey);
       } else {
+        wx.removeStorageSync("aliUploadToken")
         reject({ tempFile });
       }
     },
-    fail: function(err) {
+    fail: function (err) {
+      wx.removeStorageSync("aliUploadToken")
       reject({ tempFile });
     }
   });
   tempFile.task = uploadTask;
   callback && callback(uploadTask);
 }
-const getPolicyBase64 = function(timeout) {
+const getPolicyBase64 = function (timeout) {
   const date = new Date();
   date.setHours(date.getHours() + timeout);
   const srcT = date.toISOString();
@@ -67,7 +75,7 @@ const getPolicyBase64 = function(timeout) {
   return policyBase64;
 };
 
-const getSignature = function(policyBase64, accesskey) {
+const getSignature = function (policyBase64, accesskey) {
   const bytes = Crypto.HMAC(Crypto.SHA1, policyBase64, accesskey, {
     asBytes: true
   });

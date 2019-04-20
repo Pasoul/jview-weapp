@@ -63,12 +63,17 @@ VantComponent({
             type: Boolean,
             value: true
         },
+        // 失败是否自动重传
+        autoRetry: {
+            type: Boolean,
+            value: true
+        },
         // 子配置项
         action: {
             type: Object,
             value: {
                 aliyunServerURL: "",
-                aliyunTokenURL: "",
+                aliyunData: "",
                 ossDomain: ""
             }
         },
@@ -170,6 +175,9 @@ VantComponent({
                                 // 派发文件上传成功事件
                                 this.$emit(EVENT_SUCCESS, file);
                                 this.upload(retry);
+                                if (i === len - 1) {
+                                    !this.data.autoUpload && (this.paused = true);
+                                }
                             });
                         })
                             .catch(({ tempFile }) => {
@@ -180,7 +188,10 @@ VantComponent({
                                 }).then(() => {
                                     // 派发文件上传失败事件
                                     this.$emit(EVENT_ERROR, file);
-                                    this.upload(retry);
+                                    this.data.autoRetry && this.upload(retry);
+                                    if (i === len - 1) {
+                                        !this.data.autoUpload && (this.paused = true);
+                                    }
                                 });
                         });
                     })(i);
@@ -213,7 +224,8 @@ VantComponent({
                         if (!file.ignore) {
                             newFiles.push(file);
                             this.set({
-                                files: this.data.files.concat(file)
+                                // files: this.data.files.concat(file)
+                                [`files[${this.data.files.length}]`]: file
                             }).then(() => {
                                 this.upload();
                             });
@@ -301,19 +313,18 @@ VantComponent({
         previewImage(file) {
             let imageLists = this.data.files.reduce((arr, item) => {
                 if (item.type === TYPE_IMAGE && item.status === STATUS_SUCCESS) {
-                    arr.push(item.previewPath);
+                    arr.push(item.resultUrl);
                 }
                 return arr;
             }, []);
-            let currentIndex = imageLists.indexOf(file.resultUrl);
             wx.previewImage({
                 urls: imageLists,
-                current: imageLists[currentIndex]
+                current: file.resultUrl
             });
         },
         fileClick(e) {
             let index = e.currentTarget.dataset.index;
-            const files = this.data.files;
+            const files = this.data.renderFiles;
             const file = files[index];
             this.$emit(EVENT_CLICK, file);
             // 区分点击的是否是图片，并且设置Preview为true

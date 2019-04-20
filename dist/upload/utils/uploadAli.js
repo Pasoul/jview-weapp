@@ -4,13 +4,6 @@ import { getAliToken } from "./ajax";
 import { STATUS_UPLOADING } from "./constant";
 import "./hmac";
 import "./sha1";
-// import { TempFileImage } from '../index'
-// interface uploadFile {
-//   tempFile: TempFileImage
-//   aliyunTokenURL: string
-//   aliyunServerURL: string
-//   callback(uploadTask:Weapp.UploadTask):void
-// }
 export function uploadFile({ tempFile, aliyunTokenURL, aliyunServerURL, callback }) {
     if (!tempFile || !tempFile.uploadPath) {
         wx.showModal({
@@ -23,8 +16,8 @@ export function uploadFile({ tempFile, aliyunTokenURL, aliyunServerURL, callback
     tempFile.status = STATUS_UPLOADING;
     return new Promise((resolve, reject) => {
         getAliToken(aliyunTokenURL)
-            .then(res => {
-            uploadHandle(tempFile, res["data"]["rs"], aliyunServerURL, callback, resolve, reject);
+            .then((res) => {
+            uploadHandle(tempFile, res, aliyunServerURL, callback, resolve, reject);
         })
             .catch(err => {
             reject(err);
@@ -55,10 +48,12 @@ function uploadHandle(tempFile, res, aliyunServerURL, callback, resolve, reject)
                 resolve(aliyunFileKey);
             }
             else {
+                wx.removeStorageSync("aliUploadToken");
                 reject({ tempFile });
             }
         },
         fail: function (err) {
+            wx.removeStorageSync("aliUploadToken");
             reject({ tempFile });
         }
     });
